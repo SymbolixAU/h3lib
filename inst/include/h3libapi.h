@@ -3,6 +3,7 @@
 #define R_H3LIB_API_H
 
 #include <R.h>
+// #include <RInternals.h>
 #include <Rconfig.h>
 #include <R_ext/Rdynload.h>
 
@@ -17,11 +18,11 @@ extern "C" {
 #endif
 
 
-SEXP attribute_hidden h3libLatLngToCell(SEXP lat, SEXP lon, SEXP res) {
-  static SEXP(*fun)(SEXP, SEXP, SEXP) =
-    (SEXP(*)(SEXP, SEXP, SEXP)) R_GetCCallable("h3lib", "CLatLngToCell");
-  return fun(lat, lon, res);
-}
+// SEXP attribute_hidden h3libLatLngToCell(SEXP lat, SEXP lon, SEXP res) {
+//   static SEXP(*fun)(SEXP, SEXP, SEXP) =
+//     (SEXP(*)(SEXP, SEXP, SEXP)) R_GetCCallable("h3lib", "CLatLngToCell");
+//   return fun(lat, lon, res);
+// }
 
 
 #ifdef __cplusplus
