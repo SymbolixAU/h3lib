@@ -6,25 +6,61 @@
 
 #include "h3api.h"
 
-SEXP h3lib_latLngToCell(SEXP lat, SEXP lon, SEXP res) {
+SEXP h3LatLngToCell(SEXP lat, SEXP lon, SEXP res) {
+
+  R_xlen_t n = Rf_length(lat);
+  R_xlen_t i;
+  SEXP cells = PROTECT(Rf_allocVector(STRSXP, n));
+
   LatLng latLng;
   H3Index h3Index;
   int ires = INTEGER(res)[0];
-
-  // TODO:
-  // this is where we'll call the H3 latLngToCell();
-  latLng.lat = degsToRads(REAL(lat)[0]);
-  latLng.lng = degsToRads(REAL(lon)[0]);
-
-  latLngToCell(&latLng, ires, &h3Index);
-
   char str[17];
-  h3ToString(h3Index, str, 17);
 
-  SEXP out = PROTECT(Rf_allocVector(STRSXP, 1));
-  SET_STRING_ELT(out, 0, Rf_mkChar(str));
+  for( i = 0; i < n; i++ ) {
+
+    latLng.lat = degsToRads(REAL(lat)[i]);
+    latLng.lng = degsToRads(REAL(lon)[i]);
+
+    latLngToCell(&latLng, ires, &h3Index);
+    h3ToString(h3Index, str, 17);
+
+    SET_STRING_ELT(cells, i, Rf_mkChar(str));
+  }
+
   UNPROTECT(1);
-
-  return out;
+  return cells;
 }
 
+SEXP h3CellToLatLng(SEXP h3) {
+
+  R_xlen_t n = Rf_length(h3);
+  R_xlen_t i;
+
+  H3Index index;
+  LatLng ll;
+
+  SEXP lats = PROTECT(Rf_allocVector(REALSXP, n));
+  SEXP lons = PROTECT(Rf_allocVector(REALSXP, n));
+
+  for( i = 0; i < n; i++ ) {
+
+    stringToH3(CHAR(STRING_ELT(h3, i)), &index);
+    cellToLatLng(index, &ll);
+
+    double lat = radsToDegs(ll.lat);
+    double lon = radsToDegs(ll.lng);
+
+    SET_REAL_ELT(lats, i, lat);
+    SET_REAL_ELT(lons, i, lon);
+  }
+
+  const char *names[] = {"lat","lng",""};
+  SEXP res = PROTECT(mkNamed(VECSXP, names));
+
+  SET_VECTOR_ELT(res, 0, lats);
+  SET_VECTOR_ELT(res, 1, lons);
+  UNPROTECT(3);
+
+  return res;
+}
