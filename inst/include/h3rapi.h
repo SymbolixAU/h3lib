@@ -1,6 +1,6 @@
 
-#ifndef R_H3LIB_API_H
-#define R_H3LIB_API_H
+#ifndef R_H3R_API_H
+#define R_H3R_API_H
 
 #include <R.h>
 #include <Rinternals.h>
@@ -18,9 +18,9 @@ extern "C" {
 #endif
 
 
-inline SEXP attribute_hidden h3lib_latLngToCell(SEXP lat, SEXP lon, SEXP res) {
+inline SEXP attribute_hidden h3r_latLngToCell(SEXP lat, SEXP lon, SEXP res) {
   SEXP(*fun)(SEXP, SEXP, SEXP) =
-    (SEXP(*)(SEXP, SEXP, SEXP)) R_GetCCallable("h3lib", "h3lib_latLngToCell");
+    (SEXP(*)(SEXP, SEXP, SEXP)) R_GetCCallable("h3r", "h3r_latLngToCell");
   return fun(lat, lon, res);
 }
 
@@ -29,7 +29,7 @@ inline SEXP attribute_hidden h3lib_latLngToCell(SEXP lat, SEXP lon, SEXP res) {
 }
 
 
-namespace h3lib {
+namespace h3r {
   inline SEXP latLngToCell(SEXP lat, SEXP lon, SEXP res) {
     return h3LatLngToCell(lat, lon, res);
   }
@@ -38,4 +38,4 @@ namespace h3lib {
 
 #endif
 
-#endif // R_H3LIB_API_H
+#endif // R_H3R_API_H

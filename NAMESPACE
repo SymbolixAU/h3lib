@@ -2,4 +2,4 @@
 
 export(cellToLatLng)
 export(latLngToCell)
-useDynLib("h3lib" , .registration = TRUE)
+useDynLib("h3r", .registration = TRUE)

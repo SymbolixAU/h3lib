@@ -1,4 +1,4 @@
-#' @useDynLib "h3lib" , .registration = TRUE
+#' @useDynLib "h3r", .registration = TRUE
 NULL
 
 #
@@ -15,7 +15,7 @@ NULL
 #'
 #' @export
 latLngToCell <- function(lat, lng, resolution) {
-  .Call(h3libLatLngToCell, lat, lng, resolution)
+  .Call(h3rLatLngToCell, lat, lng, resolution)
 }
 
 #' Cell To Lat Lon
@@ -27,5 +27,5 @@ latLngToCell <- function(lat, lng, resolution) {
 #'
 #' @export
 cellToLatLng <- function(cell) {
-  .Call(h3libCellToLatLng, cell)
+  .Call(h3rCellToLatLng, cell)
 }
