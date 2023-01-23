@@ -55,3 +55,16 @@ stringToH3 <- function(h) {
 }
 
 
+#' Direction For Neighbor
+#'
+#'
+#' @export
+directionForNeighbor <- function(origin, destination) {
+
+  .Call(h3rDirectionForNeighbour, origin, destination)
+}
+
+
+
+
+

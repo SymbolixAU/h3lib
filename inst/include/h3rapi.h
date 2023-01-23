@@ -73,6 +73,12 @@ inline SEXP attribute_hidden h3r_stringToH3(SEXP h) {
   return fun(h);
 }
 
+inline SEXP attribute_hidden h3r_directionForNeighbor(SEXP origin, SEXP destination) {
+  SEXP(*fun)(SEXP, SEXP) =
+    (SEXP(*)(SEXP, SEXP)) R_GetCCallable("h3r", "h3r_directionForNeighbor");
+  return fun(origin, destination);
+}
+
 #ifdef __cplusplus
 }
 
@@ -82,12 +88,12 @@ namespace h3r {
     return h3LatLngToCell(lat, lon, res);
   }
 
-  inline SEXP h3ToString(SEXP h) {
-    return h3H3ToString(h);
-  }
-
   inline SEXP stringToH3(SEXP h) {
     return h3StringToH3(h);
+  }
+
+  inline SEXP h3ToString(SEXP h) {
+    return h3H3ToString(h);
   }
 }
 
