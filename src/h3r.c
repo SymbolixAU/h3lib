@@ -6,9 +6,46 @@
 
 #include "h3api.h"
 
+SEXP h3H3ToString(SEXP h) {
+
+  R_xlen_t n = Rf_xlength(h);
+  H3Index* h3 = (H3Index*) REAL(h);
+
+  SEXP result = PROTECT(Rf_allocVector(STRSXP, n));
+
+  char str[17];
+
+  R_xlen_t i;
+  for( i = 0; i < n; i++ ) {
+    h3ToString(h3[i], str, sizeof(str));
+    SET_STRING_ELT(result, i, Rf_mkChar(str));
+  }
+
+  UNPROTECT(1);
+  return result;
+
+}
+
+SEXP h3StringToH3(SEXP h) {
+  R_xlen_t n = Rf_xlength(h);
+
+  SEXP h3 = PROTECT(Rf_allocVector(REALSXP, n));
+  H3Index* h3Index = (H3Index*) REAL(h3);
+
+  R_xlen_t i;
+  // SEXP h3;
+  for( i = 0; i < n; i++ ) {
+    stringToH3(CHAR(STRING_ELT(h, i)), &h3Index[i]);
+  }
+
+  UNPROTECT(1);
+  return h3;
+}
+
+
 SEXP h3LatLngToCell(SEXP lat, SEXP lon, SEXP res) {
 
-  R_xlen_t n = Rf_length(lat);
+  R_xlen_t n = Rf_xlength(lat);
   R_xlen_t i;
   SEXP cells = PROTECT(Rf_allocVector(STRSXP, n));
 

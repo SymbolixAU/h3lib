@@ -29,3 +29,29 @@ latLngToCell <- function(lat, lng, resolution) {
 cellToLatLng <- function(cell) {
   .Call(h3rCellToLatLng, cell)
 }
+
+
+#' H3 To String
+#'
+#' @examples
+#'
+#'
+#'
+#' @export
+h3ToString <- function(h) {
+  .Call(h3rH3ToString, h)
+}
+
+
+#' String To H3
+#'
+#' @examples
+#'
+#' stringToH3(c("8cbe44a96a9c1ff"))
+#'
+#' @export
+stringToH3 <- function(h) {
+  .Call(h3rStringToH3, h)
+}
+
+
