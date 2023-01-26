@@ -2,10 +2,29 @@
 % Please edit documentation in R/h3r-package.R
 \name{directionForNeighbor}
 \alias{directionForNeighbor}
-\title{Direction For Neighbor}
+\title{#' H3 To String
+#'
+#' @examples
+#'
+#'
+#'
+#' @export
+h3ToString <- function(h) {
+  .Call(h3rH3ToString, h)
+}}
 \usage{
 directionForNeighbor(origin, destination)
 }
 \description{
+#' String To H3
+#'
+#' @examples
+#'
+#' stringToH3(c("8cbe44a96a9c1ff"))
+#'
+#' @export
+stringToH3 <- function(h) {
+  .Call(h3rStringToH3, h)
+}
 Direction For Neighbor
 }

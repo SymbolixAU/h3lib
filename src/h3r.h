@@ -13,10 +13,11 @@
 
 SEXP h3LatLngToCell(SEXP lat, SEXP lon, SEXP res);
 SEXP h3CellToLatLng(SEXP h3);
+SEXP h3CellToBoundary(SEXP h3);
 
-SEXP h3StringToH3(SEXP h);
-SEXP h3H3ToString(SEXP h);
+// SEXP h3StringToH3(SEXP h);
+// SEXP h3H3ToString(SEXP h);
 
-SEXP h3DirectionForNeighbor(SEXP origin, SEXP destination);
+// SEXP h3DirectionForNeighbor(SEXP origin, SEXP destination);
 
 #endif

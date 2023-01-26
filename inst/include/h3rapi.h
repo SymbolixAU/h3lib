@@ -7,6 +7,7 @@
 #include <Rconfig.h>
 #include <R_ext/Rdynload.h>
 
+
 // #include "coordijk.h"
 
 #ifdef HAVE_VISIBILITY_ATTRIBUTE
@@ -61,22 +62,28 @@ inline SEXP attribute_hidden h3r_latLngToCell(SEXP lat, SEXP lon, SEXP res) {
   return fun(lat, lon, res);
 }
 
-inline SEXP attribute_hidden h3r_h3ToString(SEXP h) {
-  SEXP(*fun)(SEXP) =
-    (SEXP(*)(SEXP)) R_GetCCallable("h3r", "h3r_h3ToString");
-  return fun(h);
-}
-
-inline SEXP attribute_hidden h3r_stringToH3(SEXP h) {
-  SEXP(*fun)(SEXP) =
-    (SEXP(*)(SEXP)) R_GetCCallable("h3r", "h3r_stringToH3");
-  return fun(h);
-}
+// inline SEXP attribute_hidden h3r_h3ToString(SEXP h) {
+//   SEXP(*fun)(SEXP) =
+//     (SEXP(*)(SEXP)) R_GetCCallable("h3r", "h3r_h3ToString");
+//   return fun(h);
+// }
+//
+// inline SEXP attribute_hidden h3r_stringToH3(SEXP h) {
+//   SEXP(*fun)(SEXP) =
+//     (SEXP(*)(SEXP)) R_GetCCallable("h3r", "h3r_stringToH3");
+//   return fun(h);
+// }
 
 inline SEXP attribute_hidden h3r_directionForNeighbor(SEXP origin, SEXP destination) {
   SEXP(*fun)(SEXP, SEXP) =
     (SEXP(*)(SEXP, SEXP)) R_GetCCallable("h3r", "h3r_directionForNeighbor");
   return fun(origin, destination);
+}
+
+inline SEXP attribute_hidden h3r_cellToBoundary(SEXP h3) {
+  SEXP(*fun)(SEXP) =
+    (SEXP(*)(SEXP)) R_GetCCallable("h3r", "h3r_cellToBoundary");
+  return fun(h3);
 }
 
 #ifdef __cplusplus
@@ -88,12 +95,20 @@ namespace h3r {
     return h3LatLngToCell(lat, lon, res);
   }
 
-  inline SEXP stringToH3(SEXP h) {
-    return h3StringToH3(h);
+  // inline SEXP stringToH3(SEXP h) {
+  //   return h3StringToH3(h);
+  // }
+  //
+  // inline SEXP h3ToString(SEXP h) {
+  //   return h3H3ToString(h);
+  // }
+
+  inline SEXP directionForNeighbor(SEXP origin, SEXP destination) {
+    return h3DirectionForNeighbor(origin, destination);
   }
 
-  inline SEXP h3ToString(SEXP h) {
-    return h3H3ToString(h);
+  inline SEXP cellToBoundary(SEXP h3) {
+    return h3CellToBoundary
   }
 }
 

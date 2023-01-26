@@ -30,29 +30,40 @@ cellToLatLng <- function(cell) {
   .Call(h3rCellToLatLng, cell)
 }
 
-
-#' H3 To String
+#' Cell To Boundary
 #'
 #' @examples
 #'
-#'
-#'
-#' @export
-h3ToString <- function(h) {
-  .Call(h3rH3ToString, h)
-}
-
-
-#' String To H3
-#'
-#' @examples
-#'
-#' stringToH3(c("8cbe44a96a9c1ff"))
+#' cellToBoundary(cell = c("8cbe44a96a9c1ff","8c3752c716b43ff"))
 #'
 #' @export
-stringToH3 <- function(h) {
-  .Call(h3rStringToH3, h)
+cellToBoundary <- function(cell) {
+  .Call(h3rCellToBoundary, cell)
 }
+
+#'
+#' #' H3 To String
+#' #'
+#' #' @examples
+#' #'
+#' #'
+#' #'
+#' #' @export
+#' h3ToString <- function(h) {
+#'   .Call(h3rH3ToString, h)
+#' }
+#'
+#'
+#' #' String To H3
+#' #'
+#' #' @examples
+#' #'
+#' #' stringToH3(c("8cbe44a96a9c1ff"))
+#' #'
+#' #' @export
+#' stringToH3 <- function(h) {
+#'   .Call(h3rStringToH3, h)
+#' }
 
 
 #' Direction For Neighbor
@@ -60,7 +71,6 @@ stringToH3 <- function(h) {
 #'
 #' @export
 directionForNeighbor <- function(origin, destination) {
-
   .Call(h3rDirectionForNeighbour, origin, destination)
 }
 
