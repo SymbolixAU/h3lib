@@ -11,7 +11,11 @@ NULL
 #'
 #' @examples
 #'
-#' latLngToCell(lat = c(-37, 37), lng = c(145, -145), resolution = 12L)
+#' latLngToCell(
+#'   lat = c(-37.820197, -37.818476)
+#'   , lng = c(144.983324, 144.967354)
+#'   , resolution = 12L
+#'   )
 #'
 #' @export
 latLngToCell <- function(lat, lng, resolution) {
@@ -23,7 +27,7 @@ latLngToCell <- function(lat, lng, resolution) {
 #'
 #' @examples
 #'
-#' cellToLatLng(cell = c("8cbe44a96a9c1ff","8c3752c716b43ff"))
+#' cellToLatLng(cell = c("8cbe63562a54bff","8cbe635631103ff"))
 #'
 #' @export
 cellToLatLng <- function(cell) {
@@ -34,11 +38,60 @@ cellToLatLng <- function(cell) {
 #'
 #' @examples
 #'
-#' cellToBoundary(cell = c("8cbe44a96a9c1ff","8c3752c716b43ff"))
+#' cellToBoundary(cell = c("8cbe63562a54bff","8cbe635631103ff"))
 #'
 #' @export
 cellToBoundary <- function(cell) {
   .Call(h3rCellToBoundary, cell)
+}
+
+#' Great Circle Distance In Radians
+#'
+#' @examples
+#'
+#' greatCirlceDistanceRads(
+#'   aLats = c(-37.820197)
+#'   , aLons = c(144.983324)
+#'   , bLats = c(-37.818476)
+#'   , bLons = c(144.967354)
+#' )
+#'
+#' @export
+greatCirlceDistanceRads <- function(aLats, aLons, bLats, bLons) {
+  .Call(h3rGreatCircleDistanceRads, aLats, aLons, bLats, bLons)
+}
+
+
+#' Great Circle Distance In Meters
+#'
+#' @examples
+#'
+#' greatCirlceDistanceM(
+#'   aLats = c(-37.820197)
+#'   , aLons = c(144.983324)
+#'   , bLats = c(-37.818476)
+#'   , bLons = c(144.967354)
+#' )
+#'
+#' @export
+greatCirlceDistanceM <- function(aLats, aLons, bLats, bLons) {
+  .Call(h3rGreatCircleDistanceM, aLats, aLons, bLats, bLons)
+}
+
+#' Great Circle Distance In Kilometers
+#'
+#' @examples
+#'
+#' greatCirlceDistanceKm(
+#'   aLats = c(-37.820197)
+#'   , aLons = c(144.983324)
+#'   , bLats = c(-37.818476)
+#'   , bLons = c(144.967354)
+#' )
+#'
+#' @export
+greatCirlceDistanceKm <- function(aLats, aLons, bLats, bLons) {
+  .Call(h3rGreatCircleDistanceKm, aLats, aLons, bLats, bLons)
 }
 
 #'

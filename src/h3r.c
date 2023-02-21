@@ -7,6 +7,8 @@
 #include "h3api.h"
 #include "algos.h"
 
+#include "h3rUtils.h"
+
 // SEXP h3StringToH3(SEXP h) {
 //   R_xlen_t n = Rf_xlength(h);
 //
@@ -65,6 +67,12 @@
 //     return result;
 // }
 
+// TODO:
+// forward the H3-C calls as-is
+// provide vectorised SEXP versions
+
+
+
 SEXP h3LatLngToCell(SEXP lat, SEXP lon, SEXP res) {
 
   R_xlen_t n = Rf_xlength(lat);
@@ -78,8 +86,7 @@ SEXP h3LatLngToCell(SEXP lat, SEXP lon, SEXP res) {
 
   for( i = 0; i < n; i++ ) {
 
-    latLng.lat = degsToRads(REAL(lat)[i]);
-    latLng.lng = degsToRads(REAL(lon)[i]);
+    sexpToLatLng(&latLng, lat, lon, i);
 
     latLngToCell(&latLng, ires, &h3Index);
     h3ToString(h3Index, str, 17);
@@ -91,54 +98,21 @@ SEXP h3LatLngToCell(SEXP lat, SEXP lon, SEXP res) {
   return cells;
 }
 
-//' LatLngList
-//'
-//' Creates a list of lat/lon elements
-SEXP latLngList(SEXP lats, SEXP lons) {
-  const char *names[] = {"lat","lng",""};
-  SEXP res = PROTECT(mkNamed(VECSXP, names));
-
-  SET_VECTOR_ELT(res, 0, lats);
-  SET_VECTOR_ELT(res, 1, lons);
-  UNPROTECT(1);
-  return res;
-}
-
-//' CellBoundaryToList
-//'
-//' Creates a list of lon/lats from a CellBoundary
-SEXP cellBoundaryToList(CellBoundary *cb) {
-  SEXP lats = PROTECT(Rf_allocVector(REALSXP, cb->numVerts));
-  SEXP lons = PROTECT(Rf_allocVector(REALSXP, cb->numVerts));
-  for( int i = 0; i < cb->numVerts; i++) {
-    SET_REAL_ELT(lats, i, radsToDegs(cb->verts[i].lat));
-    SET_REAL_ELT(lons, i, radsToDegs(cb->verts[i].lng));
-  }
-  UNPROTECT(2);
-  return latLngList(lats, lons);
-}
 
 SEXP h3CellToLatLng(SEXP h3) {
 
   R_xlen_t n = Rf_xlength(h3);
   R_xlen_t i;
 
-  H3Index index;
   LatLng ll;
 
   SEXP lats = PROTECT(Rf_allocVector(REALSXP, n));
   SEXP lons = PROTECT(Rf_allocVector(REALSXP, n));
 
   for( i = 0; i < n; i++ ) {
-
-    stringToH3(CHAR(STRING_ELT(h3, i)), &index);
+    H3Index index = sexpStringToH3(h3, i);
     cellToLatLng(index, &ll);
-
-    double lat = radsToDegs(ll.lat);
-    double lon = radsToDegs(ll.lng);
-
-    SET_REAL_ELT(lats, i, lat);
-    SET_REAL_ELT(lons, i, lon);
+    latLngToSexp(&ll, lats, lons, i);
   }
 
   SEXP res = latLngList(lats, lons);
@@ -166,7 +140,7 @@ SEXP h3CellToBoundary(SEXP h3) {
 
   for( i = 0; i < n; i++ ) {
 
-    stringToH3(CHAR(STRING_ELT(h3, i)), &index);
+    H3Index index = sexpStringToH3(h3, i);
 
     cellToBoundary(index, &cb);
     SEXP lst = cellBoundaryToList(&cb);
@@ -180,3 +154,89 @@ SEXP h3CellToBoundary(SEXP h3) {
   UNPROTECT(2);
   return res;
 }
+
+
+
+SEXP h3GreatCircleDistance(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons, int distType) {
+  R_xlen_t n = Rf_length(aLats);
+  R_xlen_t i;
+
+  SEXP out = PROTECT(Rf_allocVector(REALSXP, n));
+
+  LatLng a;
+  LatLng b;
+
+  for( i = 0; i < n; i++ ) {
+    sexpToLatLng(&a, aLats, aLons, i);
+    sexpToLatLng(&b, bLats, bLons, i);
+    if( distType == 0) {
+      SET_REAL_ELT(out, i, greatCircleDistanceRads(&a, &b));
+    } else if (distType == 1) {
+      SET_REAL_ELT(out, i, greatCircleDistanceM(&a, &b));
+    } else {
+      SET_REAL_ELT(out, i, greatCircleDistanceKm(&a, &b));
+    }
+
+  }
+
+  UNPROTECT(1);
+  return out;
+}
+
+SEXP h3GreatCircleDistanceRads(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
+  return h3GreatCircleDistance(aLats, aLons, bLats, bLons, 0);
+}
+
+SEXP h3GreatCircleDistanceM(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
+  return h3GreatCircleDistance(aLats, aLons, bLats, bLons, 1);
+}
+
+SEXP h3GreatCircleDistanceKm(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
+  return h3GreatCircleDistance(aLats, aLons, bLats, bLons, 2);
+}
+
+// SEXP h3maxGridDiskSize(SEXP k) {
+//
+//   R_xlen_t n = Rf_length(k);
+//   R_xlen_t i;
+//
+//   SEXP out = PROTECT(Rf_allocVector(INTSXP, n));
+//
+//   for( i = 0; i < n; i++) {
+//     int kRing = INTEGER_ELT(k, i);
+//
+//
+//   }
+//
+//   UNPROTECT(1);
+//   return out;
+//
+// }
+
+// SEXP h3gridDiskUnsafe(SEXP origins, SEXP k) {
+//
+//   R_xlen_t n = Rf_length(origins);
+//   R_xlen_t i;
+//
+//   SEXP result = PROTECT(Rf_allocVector(STRSXP, n));
+//   int64_t outSize;
+//
+//   for(i = 0; i < n; i++) {
+//
+//     H3Index origin = sexpStringToH3(origins, i);
+//
+//     int this_k = INTEGER_ELT(k, i);
+//     maxGridDiskSize(this_k, &outSize);
+//
+//     H3Index out[outSize];
+//     gridDiskUnsafe(origin, this_k, &out);
+//
+//
+//   }
+//
+//   unprotect(1);
+//   return result;
+//
+// }
+
+

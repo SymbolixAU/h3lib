@@ -11,6 +11,6 @@ Cell To Boundary
 }
 \examples{
 
-cellToBoundary(cell = c("8cbe44a96a9c1ff","8c3752c716b43ff"))
+cellToBoundary(cell = c("8cbe63562a54bff","8cc7439196595ff"))
 
 }

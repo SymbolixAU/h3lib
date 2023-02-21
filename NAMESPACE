@@ -3,5 +3,8 @@
 export(cellToBoundary)
 export(cellToLatLng)
 export(directionForNeighbor)
+export(greatCirlceDistanceKm)
+export(greatCirlceDistanceM)
+export(greatCirlceDistanceRads)
 export(latLngToCell)
 useDynLib("h3r", .registration = TRUE)
