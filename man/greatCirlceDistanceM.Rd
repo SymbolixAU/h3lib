@@ -15,7 +15,7 @@ greatCirlceDistanceM(
   aLats = c(-37.820197)
   , aLons = c(144.983324)
   , bLats = c(-37.818476)
-  , bLons = c(-144.967354)
+  , bLons = c(144.967354)
 )
 
 }

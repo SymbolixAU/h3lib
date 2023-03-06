@@ -75,20 +75,20 @@ extern "C" {
   }
 
   inline SEXP attribute_hidden h3r_greatCircleDistanceRads(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
-    SEXP(*fun)(SEXP) =
-      (SEXP(*)(SEXP)) R_GetCCallable("h3r","h3r_greatCircleDistanceRads");
+    SEXP(*fun)(SEXP, SEXP, SEXP, SEXP) =
+      (SEXP(*)(SEXP, SEXP, SEXP, SEXP)) R_GetCCallable("h3r","h3r_greatCircleDistanceRads");
     return fun(aLats, aLons, bLats, bLons);
   }
 
   inline SEXP attribute_hidden h3r_greatCircleDistanceM(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
-    SEXP(*fun)(SEXP) =
-      (SEXP(*)(SEXP)) R_GetCCallable("h3r","h3r_greatCircleDistanceM");
+    SEXP(*fun)(SEXP, SEXP, SEXP, SEXP) =
+      (SEXP(*)(SEXP, SEXP, SEXP, SEXP)) R_GetCCallable("h3r","h3r_greatCircleDistanceM");
     return fun(aLats, aLons, bLats, bLons);
   }
 
   inline SEXP attribute_hidden h3r_greatCircleDistanceKm(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
-    SEXP(*fun)(SEXP) =
-      (SEXP(*)(SEXP)) R_GetCCallable("h3r","h3r_greatCircleDistanceKm");
+    SEXP(*fun)(SEXP, SEXP, SEXP, SEXP) =
+      (SEXP(*)(SEXP, SEXP, SEXP, SEXP)) R_GetCCallable("h3r","h3r_greatCircleDistanceKm");
     return fun(aLats, aLons, bLats, bLons);
   }
 
@@ -98,7 +98,7 @@ extern "C" {
 
 namespace h3r {
   inline SEXP latLngToCell(SEXP lat, SEXP lon, SEXP res) {
-    return h3LatLngToCell(lat, lon, res);
+    return h3r_latLngToCell(lat, lon, res);
   }
 
   inline SEXP directionForNeighbor(SEXP origin, SEXP destination) {
