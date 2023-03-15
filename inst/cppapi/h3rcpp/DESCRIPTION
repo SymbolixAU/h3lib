@@ -12,7 +12,9 @@ Encoding: UTF-8
 LazyData: true
 Imports: Rcpp (>= 1.0.10)
 SystemRequirements: C++17
+Depends:
+  h3r,
 LinkingTo:
   h3r,
   Rcpp
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3

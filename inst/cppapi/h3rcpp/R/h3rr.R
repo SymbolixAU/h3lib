@@ -1,4 +1,5 @@
 #' @useDynLib h3rcpp, .registration = TRUE
+#' @import Rcpp
 NULL
 
 #' ll2Cel

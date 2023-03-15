@@ -13,7 +13,7 @@ static const R_CallMethodDef callMethods[] = {
 };
 
 /* Imports from h3lib */
-SEXP (*h3r_latLngToCell)(SEXP,SEXP,SEXP);
+SEXP (*h3LatLngToCell)(SEXP,SEXP,SEXP);
 
 void R_init_h3rc(DllInfo *info)
 
@@ -22,5 +22,5 @@ void R_init_h3rc(DllInfo *info)
   R_useDynamicSymbols(info, FALSE);
 
   /* Imports from h3lib */
-  h3r_latLngToCell = (SEXP(*)(SEXP,SEXP,SEXP)) R_GetCCallable("h3r", "h3r_latLngToCell");
+  h3LatLngToCell = (SEXP(*)(SEXP,SEXP,SEXP)) R_GetCCallable("h3r", "h3LatLngToCell");
 }

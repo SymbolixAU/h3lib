@@ -34,7 +34,7 @@ void attribute_visible R_init_h3r(DllInfo *info)
 
   R_useDynamicSymbols(info, FALSE);
 
-  R_RegisterCCallable("h3r", "h3r_latLngToCell",    (DL_FUNC) &h3LatLngToCell);
+  R_RegisterCCallable("h3r", "h3LatLngToCell",    (DL_FUNC) &h3LatLngToCell);
   R_RegisterCCallable("h3r", "h3r_cellToLatLng",    (DL_FUNC) &h3CellToLatLng);
   R_RegisterCCallable("h3r", "h3r_cellToBoundary",  (DL_FUNC) &h3CellToBoundary);
   // R_RegisterCCallable("h3r", "h3r_h3ToString",   (DL_FUNC) &h3H3ToString);
