@@ -23,7 +23,7 @@ LinkingTo:
 Define the functions you want to import from {h3lib}
 
 ```
-SEXP (*h3r_latLngToCell)(SEXP,SEXP,SEXP);
+SEXP (*h3rLatLngToCell)(SEXP,SEXP,SEXP);
 
 void R_init_h3rc(DllInfo *info)
 
@@ -32,7 +32,7 @@ void R_init_h3rc(DllInfo *info)
   R_useDynamicSymbols(info, FALSE);
 
   /* Imports from h3lib */
-  h3r_latLngToCell = (SEXP(*)(SEXP,SEXP,SEXP)) R_GetCCallable("h3r", "h3r_latLngToCell");
+  h3rLatLngToCell = (SEXP(*)(SEXP,SEXP,SEXP)) R_GetCCallable("h3r", "h3rLatLngToCell");
 }
 ```
 
@@ -44,7 +44,7 @@ Include the "h3rapi.h" header, then you can call the functions you've registered
 #include "h3rapi.h"
 
 SEXP h3rcLatLngToCell(SEXP lat, SEXP lon, SEXP res) {
-  return h3r_latLngToCell(lat, lon, res);
+  return h3rLatLngToCell(lat, lon, res);
 }
 
 ```

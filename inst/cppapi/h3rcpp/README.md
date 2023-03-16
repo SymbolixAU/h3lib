@@ -8,6 +8,8 @@
 Link to {h3lib} and {Rcpp}
 
 ```
+Depends: 
+  h3r,
 LinkingTo:
   h3r,
   Rcpp

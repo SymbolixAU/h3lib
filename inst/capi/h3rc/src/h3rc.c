@@ -5,5 +5,5 @@
 #include "h3rapi.h"
 
 SEXP h3rcLatLngToCell(SEXP lat, SEXP lon, SEXP res) {
-  return h3LatLngToCell(lat, lon, res);
+  return h3rLatLngToCell(lat, lon, res);
 }

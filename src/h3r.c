@@ -73,7 +73,7 @@
 
 
 
-SEXP h3LatLngToCell(SEXP lat, SEXP lon, SEXP res) {
+SEXP h3rLatLngToCell(SEXP lat, SEXP lon, SEXP res) {
 
   R_xlen_t n = Rf_xlength(lat);
   R_xlen_t i;
@@ -99,7 +99,7 @@ SEXP h3LatLngToCell(SEXP lat, SEXP lon, SEXP res) {
 }
 
 
-SEXP h3CellToLatLng(SEXP h3) {
+SEXP h3rCellToLatLng(SEXP h3) {
 
   R_xlen_t n = Rf_xlength(h3);
   R_xlen_t i;
@@ -122,7 +122,7 @@ SEXP h3CellToLatLng(SEXP h3) {
 }
 
 
-SEXP h3CellToBoundary(SEXP h3) {
+SEXP h3rCellToBoundary(SEXP h3) {
   R_xlen_t n = Rf_xlength(h3);
   R_xlen_t i;
   SEXP names = PROTECT(Rf_allocVector(STRSXP, n));
@@ -157,7 +157,7 @@ SEXP h3CellToBoundary(SEXP h3) {
 
 
 
-SEXP h3GreatCircleDistance(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons, int distType) {
+SEXP h3rGreatCircleDistance(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons, int distType) {
   R_xlen_t n = Rf_length(aLats);
   R_xlen_t i;
 
@@ -183,16 +183,16 @@ SEXP h3GreatCircleDistance(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons, int d
   return out;
 }
 
-SEXP h3GreatCircleDistanceRads(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
-  return h3GreatCircleDistance(aLats, aLons, bLats, bLons, 0);
+SEXP h3rGreatCircleDistanceRads(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
+  return h3rGreatCircleDistance(aLats, aLons, bLats, bLons, 0);
 }
 
-SEXP h3GreatCircleDistanceM(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
-  return h3GreatCircleDistance(aLats, aLons, bLats, bLons, 1);
+SEXP h3rGreatCircleDistanceM(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
+  return h3rGreatCircleDistance(aLats, aLons, bLats, bLons, 1);
 }
 
-SEXP h3GreatCircleDistanceKm(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
-  return h3GreatCircleDistance(aLats, aLons, bLats, bLons, 2);
+SEXP h3rGreatCircleDistanceKm(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
+  return h3rGreatCircleDistance(aLats, aLons, bLats, bLons, 2);
 }
 
 // SEXP h3maxGridDiskSize(SEXP k) {
