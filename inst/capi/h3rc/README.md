@@ -1,6 +1,6 @@
 # C API
 
-{h3rc} is a demo package showing how to include the C code from {h3lib} into another package.
+{h3rc} is a demo package showing how to include the C code from {h3r} into another package.
 
 
 
@@ -9,7 +9,7 @@
 
 ## DESCRIPTION
 
-Depend & Link to {h3lib}
+Depend & Link to {h3r}
 
 ```
 Depends:
@@ -20,7 +20,7 @@ LinkingTo:
 
 ## src/init.c
 
-Define the functions you want to import from {h3lib}
+Define the functions you want to import from {h3r}
 
 ```
 SEXP (*h3rLatLngToCell)(SEXP,SEXP,SEXP);
@@ -31,7 +31,7 @@ void R_init_h3rc(DllInfo *info)
   R_registerRoutines(info, NULL, callMethods, NULL, NULL);
   R_useDynamicSymbols(info, FALSE);
 
-  /* Imports from h3lib */
+  /* Imports from h3r */
   h3rLatLngToCell = (SEXP(*)(SEXP,SEXP,SEXP)) R_GetCCallable("h3r", "h3rLatLngToCell");
 }
 ```

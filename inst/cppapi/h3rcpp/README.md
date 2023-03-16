@@ -1,11 +1,11 @@
 # C++ API
 
-{h3rcpp} is a demo package showing how to include the C++ code from {h3lib} into another package.
+{h3rcpp} is a demo package showing how to include the C++ code from {h3r} into another package.
 
 
 ## DESCRIPTION
 
-Link to {h3lib} and {Rcpp}
+Link to {h3r} and {Rcpp}
 
 ```
 Depends: 
