@@ -101,25 +101,25 @@ namespace h3r {
     return h3rLatLngToCell(lat, lon, res);
   }
 
-  // inline SEXP directionForNeighbor(SEXP origin, SEXP destination) {
-  //   return h3DirectionForNeighbor(origin, destination);
-  // }
-  //
-  // inline SEXP cellToBoundary(SEXP h3) {
-  //   return h3CellToBoundary(h3);
-  // }
-  //
-  // inline SEXP greatCircleDistanceRads(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
-  //   return h3GreatCircleDistanceRads(aLats, aLons, bLats, bLons);
-  // }
-  //
-  // inline SEXP greatCircleDistanceM(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
-  //   return h3GreatCircleDistanceM(aLats, aLons, bLats, bLons);
-  // }
-  //
-  // inline SEXP greatCircleDistanceKm(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
-  //   return h3GreatCircleDistanceKm(aLats, aLons, bLats, bLons);
-  // }
+  inline SEXP directionForNeighbor(SEXP origin, SEXP destination) {
+    return h3DirectionForNeighbor(origin, destination);
+  }
+
+  inline SEXP cellToBoundary(SEXP h3) {
+    return h3CellToBoundary(h3);
+  }
+
+  inline SEXP greatCircleDistanceRads(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
+    return h3GreatCircleDistanceRads(aLats, aLons, bLats, bLons);
+  }
+
+  inline SEXP greatCircleDistanceM(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
+    return h3GreatCircleDistanceM(aLats, aLons, bLats, bLons);
+  }
+
+  inline SEXP greatCircleDistanceKm(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
+    return h3GreatCircleDistanceKm(aLats, aLons, bLats, bLons);
+  }
 }
 
 
