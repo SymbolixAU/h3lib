@@ -18,6 +18,9 @@ static const R_CallMethodDef callMethods[] = {
   {"h3rLatLngToCell",   (DL_FUNC) &h3rLatLngToCell,   3},
   {"h3rCellToLatLng",   (DL_FUNC) &h3rCellToLatLng,   1},
   {"h3rCellToBoundary", (DL_FUNC) &h3rCellToBoundary, 1},
+
+  {"h3rGetResolution",  (DL_FUNC) &h3rGetResolution,  1},
+
   // {"h3rH3ToString",     (DL_FUNC) &h3H3ToString,     1},
   // {"h3rStringToH3",     (DL_FUNC) &h3StringToH3,     1},
   // {"h3rDirectionForNeighbor", (DL_FUNC) &h3DirectionForNeighbor, 2},
@@ -37,6 +40,9 @@ void attribute_visible R_init_h3r(DllInfo *info)
   R_RegisterCCallable("h3r", "h3rLatLngToCell",    (DL_FUNC) &h3rLatLngToCell);
   R_RegisterCCallable("h3r", "h3rCellToLatLng",    (DL_FUNC) &h3rCellToLatLng);
   R_RegisterCCallable("h3r", "h3rCellToBoundary",  (DL_FUNC) &h3rCellToBoundary);
+
+  R_RegisterCCallable("h3r", "h3rGetResolution",   (DL_FUNC) &h3rGetResolution);
+
   // R_RegisterCCallable("h3r", "h3r_h3ToString",   (DL_FUNC) &h3H3ToString);
   // R_RegisterCCallable("h3r", "h3r_stringToH3",   (DL_FUNC) &h3StringToH3);
   // R_RegisterCCallable("h3r", "h3r_directionForNeighbor", (DL_FUNC) &h3DirectionForNeighbor);

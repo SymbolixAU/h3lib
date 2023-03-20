@@ -1,49 +1,6 @@
 #' @useDynLib "h3r", .registration = TRUE
 NULL
 
-#
-
-#' lat lng to cell
-#'
-#' @param lat latitude
-#' @param lng longitude
-#' @param resolution cell resolution
-#'
-#' @examples
-#'
-#' latLngToCell(
-#'   lat = c(-37.820197, -37.818476)
-#'   , lng = c(144.983324, 144.967354)
-#'   , resolution = 12L
-#'   )
-#'
-#' @export
-latLngToCell <- function(lat, lng, resolution) {
-  .Call(h3rLatLngToCell, lat, lng, resolution)
-}
-
-#' Cell To Lat Lon
-#'
-#'
-#' @examples
-#'
-#' cellToLatLng(cell = c("8cbe63562a54bff","8cbe635631103ff"))
-#'
-#' @export
-cellToLatLng <- function(cell) {
-  .Call(h3rCellToLatLng, cell)
-}
-
-#' Cell To Boundary
-#'
-#' @examples
-#'
-#' cellToBoundary(cell = c("8cbe63562a54bff","8cbe635631103ff"))
-#'
-#' @export
-cellToBoundary <- function(cell) {
-  .Call(h3rCellToBoundary, cell)
-}
 
 #' Great Circle Distance In Radians
 #'

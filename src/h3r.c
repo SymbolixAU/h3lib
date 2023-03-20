@@ -72,6 +72,7 @@
 // provide vectorised SEXP versions
 
 
+//MARK: --- Indexing
 
 SEXP h3rLatLngToCell(SEXP lat, SEXP lon, SEXP res) {
 
@@ -111,6 +112,10 @@ SEXP h3rCellToLatLng(SEXP h3) {
 
   for( i = 0; i < n; i++ ) {
     H3Index index = sexpStringToH3(h3, i);
+    int isValid = isValidCell(index);
+    //if( !isValid ) {
+    //  fprintf(stderr, "Invlaid H3");
+    //}
     cellToLatLng(index, &ll);
     latLngToSexp(&ll, lats, lons, i);
   }
@@ -131,7 +136,7 @@ SEXP h3rCellToBoundary(SEXP h3) {
   // what structure should be returned?
   // - list of named-lists ?
   // - data.frame with h3, lat, lng columns?
-  H3Index index;
+  //H3Index index;
   CellBoundary cb;
   LatLng ll;
 
@@ -155,6 +160,23 @@ SEXP h3rCellToBoundary(SEXP h3) {
   return res;
 }
 
+
+// MARK: - Inspection
+SEXP h3rGetResolution(SEXP h3) {
+  R_xlen_t n = Rf_xlength(h3);
+  R_xlen_t i;
+
+  SEXP out = PROTECT(Rf_allocVector(INTSXP, n));
+
+  for(i = 0; i < n; i++) {
+    H3Index index = sexpStringToH3(h3, i);
+    int resolution = getResolution(index);
+    SET_INTEGER_ELT(out, i, resolution);
+  }
+
+  UNPROTECT(1);
+  return out;
+}
 
 
 SEXP h3rGreatCircleDistance(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons, int distType) {

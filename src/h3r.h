@@ -15,6 +15,8 @@ SEXP h3rLatLngToCell(SEXP lat, SEXP lon, SEXP res);
 SEXP h3rCellToLatLng(SEXP h3);
 SEXP h3rCellToBoundary(SEXP h3);
 
+SEXP h3rGetResolution(SEXP h3);
+
 // typedef enum {
 //   RADIANS = 0,
 //   METERS = 1,
