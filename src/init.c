@@ -9,8 +9,6 @@
 #include <R_ext/Rdynload.h>
 #include <R_ext/Visibility.h>
 
-// #include "coordijk.h"
-
 // uint64_t H3Index;
 
 /* Define .Call functions */

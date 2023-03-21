@@ -43,7 +43,9 @@ cellToChildren <- function(cell, childRes) {
 }
 
 
+cellToCenterChild <- function(cell, childRes) {
 
+}
 
 ## TODO:
 # cellToChildrenSize <-- returns int64_t
