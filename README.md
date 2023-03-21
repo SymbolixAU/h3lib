@@ -13,7 +13,7 @@ e.g:
 
 ## Design Choices
 
-- All H3Indexes are returned as the String representation. If you want the `long long` type you need to use the C / C++ functions directly
+- All H3Indexes are returned as the String representation. If you want the `H3Index` / `uint64_t` type you need to use the C / C++ functions directly
 
 ## API
 

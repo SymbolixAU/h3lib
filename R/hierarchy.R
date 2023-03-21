@@ -42,7 +42,11 @@ cellToChildren <- function(cell, childRes) {
   .Call(h3rCellToChildren, cell, childRes)
 }
 
-
+#' Cell To Center Child
+#'
+#' Provies the center child index contained by `cell` at the `childRes` resolution
+#'
+#' @export
 cellToCenterChild <- function(cell, childRes) {
 
 }
