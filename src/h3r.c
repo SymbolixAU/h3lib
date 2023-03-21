@@ -112,7 +112,7 @@ SEXP h3rCellToLatLng(SEXP h3) {
 
   for( i = 0; i < n; i++ ) {
     H3Index index = sexpStringToH3(h3, i);
-    int isValid = isValidCell(index);
+    //int isValid = isValidCell(index);
     //if( !isValid ) {
     //  fprintf(stderr, "Invlaid H3");
     //}
@@ -138,7 +138,7 @@ SEXP h3rCellToBoundary(SEXP h3) {
   // - data.frame with h3, lat, lng columns?
   //H3Index index;
   CellBoundary cb;
-  LatLng ll;
+  //LatLng ll;
 
   SEXP res = PROTECT(Rf_allocVector(VECSXP, n)); // store he results in a list
   // where each element be named as per the cell, adn the valeus will be the lon/lat
@@ -179,6 +179,111 @@ SEXP h3rGetResolution(SEXP h3) {
 }
 
 
+SEXP h3rGetBaseCellNumber(SEXP h3) {
+  R_xlen_t n = Rf_xlength(h3);
+  R_xlen_t i;
+
+  SEXP out = PROTECT(Rf_allocVector(INTSXP, n));
+
+  for(i = 0; i < n; i++) {
+    H3Index index = sexpStringToH3(h3, i);
+    int baseNumber = getBaseCellNumber(index);
+    SET_INTEGER_ELT(out, i, baseNumber);
+  }
+
+  UNPROTECT(1);
+  return out;
+}
+
+
+SEXP h3rIsValidCell(SEXP h3) {
+  R_xlen_t n = Rf_xlength(h3);
+  R_xlen_t i;
+
+  SEXP out = PROTECT(Rf_allocVector(INTSXP, n));
+
+  for(i = 0; i < n; i++) {
+    H3Index index = sexpStringToH3(h3, i);
+    int validity = isValidCell(index);
+    SET_INTEGER_ELT(out, i, validity);
+  }
+
+  UNPROTECT(1);
+  return out;
+}
+
+
+SEXP h3rIsResClassIII(SEXP h3) {
+  R_xlen_t n = Rf_xlength(h3);
+  R_xlen_t i;
+
+  SEXP out = PROTECT(Rf_allocVector(INTSXP, n));
+
+  for(i = 0; i < n; i++) {
+    H3Index index = sexpStringToH3(h3, i);
+    int classIII = isResClassIII(index);
+    SET_INTEGER_ELT(out, i, classIII);
+  }
+
+  UNPROTECT(1);
+  return out;
+}
+
+SEXP h3rIsPentagon(SEXP h3) {
+  R_xlen_t n = Rf_xlength(h3);
+  R_xlen_t i;
+
+  SEXP out = PROTECT(Rf_allocVector(INTSXP, n));
+
+  for(i = 0; i < n; i++) {
+    H3Index index = sexpStringToH3(h3, i);
+    int pentagon = isPentagon(index);
+    SET_INTEGER_ELT(out, i, pentagon);
+  }
+
+  UNPROTECT(1);
+  return out;
+}
+
+// MARK: - Traversal
+
+
+// MARK:- Hierarchy
+SEXP h3rCellToParent(SEXP h3, SEXP parentResolution) {
+
+  R_xlen_t n = Rf_xlength(h3);
+  R_xlen_t i;
+
+  char str[17];
+
+  SEXP out = PROTECT(Rf_allocVector(STRSXP, n));
+  for(i = 0; i < n; i++) {
+    int res = INTEGER_ELT(parentResolution, i);
+    H3Index index = sexpStringToH3(h3, i);
+    H3Index parent;
+    cellToParent(index, res, &parent);
+
+    h3ToString(parent, str, 17);
+
+    SET_STRING_ELT(out, i, Rf_mkChar(str));
+  }
+
+  UNPROTECT(1);
+  return out;
+}
+
+
+
+// Regions
+
+
+// Directed Edges
+
+
+// Vertexes
+
+
+// Miscellaneous
 SEXP h3rGreatCircleDistance(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons, int distType) {
   R_xlen_t n = Rf_length(aLats);
   R_xlen_t i;

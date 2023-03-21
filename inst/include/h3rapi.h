@@ -84,6 +84,52 @@ extern "C" {
     return fun(h3);
   }
 
+  inline SEXP attribute_hidden h3rGetBaseCellNumber(SEXP h3) {
+    SEXP(*fun)(SEXP) =
+      (SEXP(*)(SEXP)) R_GetCCallable("h3r", "h3rGetBaseCellNumber");
+    return fun(h3);
+  }
+
+  inline SEXP attribute_hidden h3rIsValidCell(SEXP h3) {
+    SEXP(*fun)(SEXP) =
+      (SEXP(*)(SEXP)) R_GetCCallable("h3r", "h3rIsValidCell");
+    return fun(h3);
+  }
+
+  inline SEXP attribute_hidden h3rIsResClassIII(SEXP h3) {
+    SEXP(*fun)(SEXP) =
+      (SEXP(*)(SEXP)) R_GetCCallable("h3r", "h3rIsResClassIII");
+    return fun(h3);
+  }
+
+  inline SEXP attribute_hidden h3rIsPentagon(SEXP h3) {
+    SEXP(*fun)(SEXP) =
+      (SEXP(*)(SEXP)) R_GetCCallable("h3r", "h3rIsPentagon");
+    return fun(h3);
+  }
+
+
+  // Traversal
+
+
+  // Hierarchy
+  inline SEXP attribute_hidden h3rCellToParent(SEXP h3, SEXP parentRes) {
+    SEXP(*fun)(SEXP, SEXP) =
+      (SEXP(*)(SEXP, SEXP)) R_GetCCallable("h3r", "h3rCellToParent");
+    return fun(h3, parentRes);
+  }
+
+
+  // Regions
+
+
+  // Directed Edges
+
+
+  // Vertexes
+
+
+  // Miscellaneous
   inline SEXP attribute_hidden h3rGreatCircleDistanceRads(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
     SEXP(*fun)(SEXP, SEXP, SEXP, SEXP) =
       (SEXP(*)(SEXP, SEXP, SEXP, SEXP)) R_GetCCallable("h3r","h3rGreatCircleDistanceRads");
@@ -126,8 +172,40 @@ namespace h3r {
     return h3rgetResolution(h3);
   }
 
+  inline SEXP getBaseCellNumber(SEXP h3) {
+    return h3rGetBaseCellNumber(h3);
+  }
+
+  inline SEXP isValidCell(SEXP h3) {
+    return h3rIsValidCell(h3);
+  }
+
+  inline SEXP isResClassIII(SEXP h3) {
+    return h3rIsResClassIII(h3);
+  }
+
+  inline SEXP isPentagon(SEXP h3) {
+    return h3rIsPentagon(h3);
+  }
+
+  // Traversal
 
 
+  // Hierarchy
+  inline SEXP cellToParent(SEXP h3, SEXP parentRes) {
+    return h3rCellToParent(h3, parentRes);
+  }
+
+  // Regions
+
+
+  // Directed Edges
+
+
+  // Vertexes
+
+
+  // Miscellaneous
   inline SEXP greatCircleDistanceRads(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
     return h3rGreatCircleDistanceRads(aLats, aLons, bLats, bLons);
   }
