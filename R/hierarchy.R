@@ -22,9 +22,31 @@ cellToParent <- function(cell, parentRes) {
   .Call(h3rCellToParent, cell, parentRes)
 }
 
+
+#' Cell To Children
+#'
+#' Returns all the H3 indexes contained by the input `cell` and the defined child resolution
+#'
+#' @return a named list, where each element is the input `cell`, and the values
+#' of each element are the child H3 cells
+#'
+#' @examples
+#'
+#' cell <- "8cbe63562a54bff"
+#' getResolution(cell = cell)
+#'
+#' cellToChildren(cell, childRes = 13L)
+#'
+#' @export
+cellToChildren <- function(cell, childRes) {
+  .Call(h3rCellToChildren, cell, childRes)
+}
+
+
+
+
 ## TODO:
-# cellToChildren
-# cellToChildrenSize
+# cellToChildrenSize <-- returns int64_t
 # cellToCenterChild
 # cellToChildPos
 # compactCells

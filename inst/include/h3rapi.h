@@ -119,6 +119,12 @@ extern "C" {
     return fun(h3, parentRes);
   }
 
+  inline SEXP attribute_hidden h3rCellToChildren(SEXP h3, SEXP childRes) {
+    SEXP(*fun)(SEXP, SEXP) =
+      (SEXP(*)(SEXP, SEXP)) R_GetCCallable("h3r", "h3rCellToChildren");
+    return fun(h3, parentRes);
+  }
+
 
   // Regions
 
@@ -194,6 +200,10 @@ namespace h3r {
   // Hierarchy
   inline SEXP cellToParent(SEXP h3, SEXP parentRes) {
     return h3rCellToParent(h3, parentRes);
+  }
+
+  inline SEXP cellToChildren(SEXP h3, SEXP childRes) {
+    return h3rCellToChildren(h3, childRes);
   }
 
   // Regions

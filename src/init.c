@@ -31,7 +31,9 @@ static const R_CallMethodDef callMethods[] = {
   // Traversal
 
   // Hierarchy
-  {"h3rCellToParent",        (DL_FUNC) &h3rCellToParent,        2},
+  {"h3rCellToParent",        (DL_FUNC) &h3rCellToParent,       2},
+  {"h3rCellToChildren",      (DL_FUNC) &h3rCellToChildren,     2},
+  // {"h3rCellToChildrenSize",  (DL_FUNC) &h3rCellToChildrenSize, 2},
 
   // {"h3rH3ToString",     (DL_FUNC) &h3H3ToString,     1},
   // {"h3rStringToH3",     (DL_FUNC) &h3StringToH3,     1},
@@ -75,7 +77,9 @@ void attribute_visible R_init_h3r(DllInfo *info)
   // Traversal
 
   // Hierarchy
-  R_RegisterCCallable("h3r", "h3rCellToParent",        (DL_FUNC) &h3rCellToParent);
+  R_RegisterCCallable("h3r", "h3rCellToParent",          (DL_FUNC) &h3rCellToParent);
+  R_RegisterCCallable("h3r", "h3rCellToChildren",        (DL_FUNC) &h3rCellToChildren);
+  // R_RegisterCCallable("h3r", "h3rCellToChildrenSize",        (DL_FUNC) &h3rCellToChildrenSize);
 
   // R_RegisterCCallable("h3r", "h3r_h3ToString",   (DL_FUNC) &h3H3ToString);
   // R_RegisterCCallable("h3r", "h3r_stringToH3",   (DL_FUNC) &h3StringToH3);

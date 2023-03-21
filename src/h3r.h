@@ -28,6 +28,15 @@ SEXP h3rIsPentagon(SEXP h3);
 
 // Hierarchy
 SEXP h3rCellToParent(SEXP h3, SEXP parentResolution);
+SEXP h3rCellToChildren(SEXP h3, SEXP childResolution);
+// SEXP h3rCellToChildrenSize(SEXP h3, SEXP childResolution);
+
+// Miscellaneous
+SEXP h3rGreatCircleDistance(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons, int distType);
+SEXP h3rGreatCircleDistanceRads(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons);
+SEXP h3rGreatCircleDistanceM(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons);
+SEXP h3rGreatCircleDistanceKm(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons);  // returns int64_t
+
 
 // typedef enum {
 //   RADIANS = 0,
@@ -36,10 +45,6 @@ SEXP h3rCellToParent(SEXP h3, SEXP parentResolution);
 // } DistType;
 
 
-SEXP h3rGreatCircleDistance(     SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons, int distType);
-SEXP h3rGreatCircleDistanceRads( SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons);
-SEXP h3rGreatCircleDistanceM(    SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons);
-SEXP h3rGreatCircleDistanceKm(   SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons);
 
 //SEXP h3gridDiskUnsafe(SEXP origins, SEXP k);
 

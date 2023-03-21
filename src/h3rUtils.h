@@ -11,6 +11,16 @@
 //' fills the `latLng` object with the contents of SEXP lat/lon vectors
 void sexpToLatLng(LatLng *latLng, SEXP lat, SEXP lon, R_xlen_t idx);
 
+//' H3 To Sexp String
+//'
+//' converts an h3 index to a SEXP string (`Rf_mkChar()`)
+SEXP h3ToSexpString(H3Index h3);
+
+//' H3 Vec To Sexp String
+//'
+//' Converts an array of H3 indexes to a SEXP (STRSXP) vector
+SEXP h3VecToSexpString(H3Index *h3, R_xlen_t n);
+
 //' SEXP String to H3
 //'
 //' Converts an R String (SEXP) to an `H3Index`

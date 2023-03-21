@@ -12,6 +12,24 @@ H3Index sexpStringToH3(SEXP h3, R_xlen_t idx) {
   return index;
 }
 
+SEXP h3ToSexpString(H3Index h3) {
+  char str[17];
+  h3ToString(h3, str, sizeof(str));
+  return Rf_mkChar(str);
+}
+
+SEXP h3VecToSexpString(H3Index *h3, R_xlen_t n) {
+  SEXP out = PROTECT(Rf_allocVector(STRSXP, n));
+  R_xlen_t i;
+  for( i = 0; i < n; i++ ) {
+    H3Index index = h3[ i ];
+    SET_STRING_ELT(out, i, h3ToSexpString(index));
+  }
+
+  UNPROTECT(1);
+  return out;
+}
+
 void latLngToSexp(LatLng *latLng, SEXP lats, SEXP lons, R_xlen_t idx) {
   double lat = radsToDegs(latLng->lat);
   double lon = radsToDegs(latLng->lng);
