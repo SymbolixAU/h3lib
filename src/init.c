@@ -1,6 +1,9 @@
 
 #include "h3r.h"
 #include "h3api.h"
+
+#include "algos.h" // directionForNeighbor
+
 #include <R.h>
 // #include <Rinternals.h>
 //#include <stdlib.h> // for NULL
@@ -9,14 +12,12 @@
 #include <R_ext/Rdynload.h>
 #include <R_ext/Visibility.h>
 
-// uint64_t H3Index;
+
 
 /* Define .Call functions */
 static const R_CallMethodDef callMethods[] = {
 
   // Indexing
-  {"h3LatLngToCell",    (DL_FUNC) &latLngToCell,    3},
-
   {"h3rLatLngToCell",   (DL_FUNC) &h3rLatLngToCell,   3},
   {"h3rCellToLatLng",   (DL_FUNC) &h3rCellToLatLng,   1},
   {"h3rCellToBoundary", (DL_FUNC) &h3rCellToBoundary, 1},
@@ -55,9 +56,13 @@ static const R_CallMethodDef callMethods[] = {
 
 
   // Miscellaneous
+  {"h3rDegsToRads",              (DL_FUNC) &h3rDegsToRads,              1},     // H3 Internal
+  {"h3rRadsToDegs",              (DL_FUNC) &h3rRadsToDegs,              1},
+
   {"h3rGreatCircleDistanceRads", (DL_FUNC) &h3rGreatCircleDistanceRads, 4},
   {"h3rGreatCircleDistanceM",    (DL_FUNC) &h3rGreatCircleDistanceM,    4},
   {"h3rGreatCircleDistanceKm",   (DL_FUNC) &h3rGreatCircleDistanceKm,   4},
+
   {NULL,                NULL,                        0}
 };
 
@@ -69,7 +74,7 @@ void attribute_visible R_init_h3r(DllInfo *info)
   R_useDynamicSymbols(info, FALSE);
 
   // Indexing
-  R_RegisterCCallable("h3r", "h3LatLngToCell",    (DL_FUNC) &latLngToCell);
+  R_RegisterCCallable("h3r", "latLngToCell",       (DL_FUNC) &latLngToCell);       // H3 Internal
 
   R_RegisterCCallable("h3r", "h3rLatLngToCell",    (DL_FUNC) &h3rLatLngToCell);
   R_RegisterCCallable("h3r", "h3rCellToLatLng",    (DL_FUNC) &h3rCellToLatLng);
@@ -82,7 +87,7 @@ void attribute_visible R_init_h3r(DllInfo *info)
   R_RegisterCCallable("h3r", "h3rIsResClassIII",       (DL_FUNC) &h3rIsResClassIII);
   R_RegisterCCallable("h3r", "h3rIsPentagon",          (DL_FUNC) &h3rIsPentagon);
   R_RegisterCCallable("h3r", "h3rGetIcosahedronFaces", (DL_FUNC) &h3rGetIcosahedronFaces);
-  R_RegisterCCallable("h3r", "SEXP h3rMaxFaceCount",   (DL_FUNC) &h3rMaxFaceCount);
+  R_RegisterCCallable("h3r", "h3rMaxFaceCount",        (DL_FUNC) &h3rMaxFaceCount);
 
   // Traversal
 
@@ -109,9 +114,19 @@ void attribute_visible R_init_h3r(DllInfo *info)
 
 
   // Miscellaneous
+  R_RegisterCCallable("h3r", "degsToRads",                 (DL_FUNC) &degsToRads);
+
+  R_RegisterCCallable("h3r", "h3rDegsToRads",              (DL_FUNC) &h3rDegsToRads);
+  R_RegisterCCallable("h3r", "h3rRadsToDegs",              (DL_FUNC) &h3rRadsToDegs);
+
   R_RegisterCCallable("h3r", "h3rGreatCircleDistanceRads", (DL_FUNC) &h3rGreatCircleDistanceRads);
   R_RegisterCCallable("h3r", "h3rGreatCircleDistanceM",    (DL_FUNC) &h3rGreatCircleDistanceM);
   R_RegisterCCallable("h3r", "h3rGreatCircleDistanceKm",   (DL_FUNC) &h3rGreatCircleDistanceKm);
+
+
+  // Non-API
+  R_RegisterCCallable("h3r", "directionForNeighbor", (DL_FUNC) &directionForNeighbor);
+
 
   R_forceSymbols(info, TRUE);  // controls visibility
 

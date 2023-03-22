@@ -10,9 +10,44 @@
 
 #include "h3rUtils.h"
 
+// I mean I _could_ just do the matchs directly on the SEXP
+// rather than call the H3 library...
+SEXP h3rDegsToRads(SEXP degrees) {
+
+  R_xlen_t n = Rf_xlength(degrees);
+  R_xlen_t i;
+
+  SEXP out = PROTECT(Rf_allocVector(REALSXP, n));
+
+  double *dblDeg = REAL(degrees);
+
+  for( i = 0; i < n; i++ ) {
+    SET_REAL_ELT(out, i, degsToRads(dblDeg[i]));
+  }
+
+  UNPROTECT(1);
+  return out;
+}
+
+SEXP h3rRadsToDegs(SEXP rads) {
+  R_xlen_t n = Rf_xlength(rads);
+  R_xlen_t i;
+
+  SEXP out = PROTECT(Rf_allocVector(REALSXP, n));
+
+  double *dblRads = REAL(rads);
+
+  for( i = 0; i < n; i++ ) {
+    SET_REAL_ELT(out, i, radsToDegs(dblRads[i]));
+  }
+
+  UNPROTECT(1);
+  return out;
+}
+
 
 SEXP h3rGreatCircleDistance(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons, int distType) {
-  R_xlen_t n = Rf_length(aLats);
+  R_xlen_t n = Rf_xlength(aLats);
   R_xlen_t i;
 
   SEXP out = PROTECT(Rf_allocVector(REALSXP, n));

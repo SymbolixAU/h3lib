@@ -12,6 +12,7 @@
 /* Function Definitions for {h3rc} */
 static const R_CallMethodDef callMethods[] = {
   {"h3rcLatLngToCell",    (DL_FUNC) &h3rcLatLngToCell,  3},
+  {"h3rcDirectionForNeighbour", (DL_FUNC) &h3rcDirectionForNeighbour},
   {NULL, NULL, 0}
 };
 

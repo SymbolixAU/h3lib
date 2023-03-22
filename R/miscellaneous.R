@@ -1,4 +1,34 @@
 
+#' Degrees To Rads
+#'
+#' Converts Degrees to Radians
+#'
+#' @param deg vector of degrees
+#'
+#' @examples
+#'
+#' degsToRads(deg = seq(0, 360, by = 15))
+#'
+#'
+#' @export
+degsToRads <- function(deg) {
+  .Call(h3rDegsToRads, deg)
+}
+
+#' Rads to Degrees
+#'
+#' Converts Radians to Degrees
+#'
+#' @param rad vector of radians
+#'
+#' @examples
+#' radsToDegs(rad = seq(0, 2 * pi, by = (pi / 12) ) )
+#'
+#' @export
+radsToDegs <- function(rad) {
+  .Call(h3rRadsToDegs, rad)
+}
+
 #' Great Circle Distance In Radians
 #'
 #' @examples

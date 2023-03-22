@@ -67,6 +67,11 @@ isValidCell <- function(cell) {
 #'
 #' isResClassIII(cell = c("8cbe63562a54bff","8cbe635631103ff"))
 #'
+#' hex8 <- "88bf4ac0cdfffff"
+#' hex9 <- "89bf4ac0cd7ffff"
+#' hex10 <- "8abf4ac0cd67fff"
+#' isResClassIII(cell = c(hex8, hex9, hex10))
+#'
 #' @return a vector the same length as `cell` indicating if the cell is Class II
 #'
 #' @export

@@ -44,6 +44,9 @@ SEXP h3rVertexToLatLng(SEXP h3);
 SEXP h3rIsValidVertex(SEXP h3);
 
 // Miscellaneous
+SEXP h3rDegsToRads(SEXP degrees);
+SEXP h3rRadsToDegs(SEXP degrees);
+
 SEXP h3rGreatCircleDistance(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons, int distType);
 SEXP h3rGreatCircleDistanceRads(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons);
 SEXP h3rGreatCircleDistanceM(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons);

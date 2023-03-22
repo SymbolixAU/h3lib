@@ -21,42 +21,68 @@
 extern "C" {
 #endif
 
-// typedef enum {
-// /** H3 digit in center */
-// CENTER_DIGIT = 0,
-//   /** H3 digit in k-axes direction */
-//   K_AXES_DIGIT = 1,
-//   /** H3 digit in j-axes direction */
-//   J_AXES_DIGIT = 2,
-//   /** H3 digit in j == k direction */
-//   JK_AXES_DIGIT = J_AXES_DIGIT | K_AXES_DIGIT, /* 3 */
-//   /** H3 digit in i-axes direction */
-//   I_AXES_DIGIT = 4,
-//   /** H3 digit in i == k direction */
-//   IK_AXES_DIGIT = I_AXES_DIGIT | K_AXES_DIGIT, /* 5 */
-//   /** H3 digit in i == j direction */
-//   IJ_AXES_DIGIT = I_AXES_DIGIT | J_AXES_DIGIT, /* 6 */
-//   /** H3 digit in the invalid direction */
-//   INVALID_DIGIT = 7,
-//   /** Valid digits will be less than this value. Same value as INVALID_DIGIT.
-//    */
-//   NUM_DIGITS = INVALID_DIGIT,
-//   /** Child digit which is skipped for pentagons */
-//   PENTAGON_SKIPPED_DIGIT = K_AXES_DIGIT /* 1 */
-// } Direction;
-//
-// typedef uint64_t H3Index;
-//
-// typedef struct {
-//   double lat;  ///< latitude in radians
-//   double lng;  ///< longitude in radians
-// } LatLng;
-//
-// typedef struct {
-//   int i;  ///< i component
-//   int j;  ///< j component
-// } CoordIJ;
+// Forwarding some useful structures
+typedef enum {
+/** H3 digit in center */
+CENTER_DIGIT = 0,
+  /** H3 digit in k-axes direction */
+  K_AXES_DIGIT = 1,
+  /** H3 digit in j-axes direction */
+  J_AXES_DIGIT = 2,
+  /** H3 digit in j == k direction */
+  JK_AXES_DIGIT = J_AXES_DIGIT | K_AXES_DIGIT, /* 3 */
+  /** H3 digit in i-axes direction */
+  I_AXES_DIGIT = 4,
+  /** H3 digit in i == k direction */
+  IK_AXES_DIGIT = I_AXES_DIGIT | K_AXES_DIGIT, /* 5 */
+  /** H3 digit in i == j direction */
+  IJ_AXES_DIGIT = I_AXES_DIGIT | J_AXES_DIGIT, /* 6 */
+  /** H3 digit in the invalid direction */
+  INVALID_DIGIT = 7,
+  /** Valid digits will be less than this value. Same value as INVALID_DIGIT.
+   */
+  NUM_DIGITS = INVALID_DIGIT,
+  /** Child digit which is skipped for pentagons */
+  PENTAGON_SKIPPED_DIGIT = K_AXES_DIGIT /* 1 */
+} Direction;
 
+typedef uint64_t H3Index;
+
+typedef struct {
+  double lat;  ///< latitude in radians
+  double lng;  ///< longitude in radians
+} LatLng;
+
+typedef struct {
+  int i;  ///< i component
+  int j;  ///< j component
+} CoordIJ;
+
+
+inline double degsToRads(double degrees) {
+  double(*fun)(double) =
+    (double(*)(double)) R_GetCCallable("h3r", "degsToRads");
+  return fun(degrees);
+}
+
+inline double radsToDegs(double degrees) {
+  double(*fun)(double) =
+    (double(*)(double)) R_GetCCallable("h3r", "radsToDegs");
+  return fun(degrees);
+}
+
+
+inline int latLngToCell(const LatLng *g, int res, H3Index *out) {
+  int(*fun)(const LatLng*, int, H3Index*) =
+    (int(*)(const LatLng*, int, H3Index*)) R_GetCCallable("h3r","latLngToCell");
+  return fun(g, res, out);
+}
+
+inline Direction directionForNeighbor(H3Index origin, H3Index destination) {
+  Direction(*fun)(H3Index, H3Index) =
+    (Direction(*)(H3Index, H3Index)) R_GetCCallable("h3r", "directionForNeighbor");
+  return fun(origin, destination);
+}
 
   // Indexing
   inline SEXP attribute_hidden h3rLatLngToCell(SEXP lat, SEXP lon, SEXP res) {
@@ -137,6 +163,18 @@ extern "C" {
 
 
   // Miscellaneous
+  inline SEXP attribute_hidden h3rDegsToRads(SEXP deg) {
+    SEXP(*fun)(SEXP) =
+      (SEXP(*)(SEXP)) R_GetCCallable("h3r", "h3rDegsToRads");
+    return fun(deg);
+  }
+
+  inline SEXP attribute_hidden h3rRadsToDegs(SEXP rad) {
+    SEXP(*fun)(SEXP) =
+      (SEXP(*)(SEXP)) R_GetCCallable("h3r", "h3rRadsToDegs");
+    return fun(rad);
+  }
+
   inline SEXP attribute_hidden h3rGreatCircleDistanceRads(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
     SEXP(*fun)(SEXP, SEXP, SEXP, SEXP) =
       (SEXP(*)(SEXP, SEXP, SEXP, SEXP)) R_GetCCallable("h3r","h3rGreatCircleDistanceRads");
@@ -217,6 +255,14 @@ namespace h3r {
 
 
   // Miscellaneous
+  inline SEXP degsToRads(SEXP deg) {
+    return h3rDegsToRads(deg);
+  }
+
+  inline SEXP radsToDegs(SEXP rad) {
+    return h3rRadsToDegs(rad);
+  }
+
   inline SEXP greatCircleDistanceRads(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
     return h3rGreatCircleDistanceRads(aLats, aLons, bLats, bLons);
   }
