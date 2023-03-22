@@ -4,6 +4,8 @@
 #include <Rinternals.h>
 #include "h3rapi.h"
 
+// #include <h3api.h>
+
 SEXP h3rcLatLngToCell(SEXP lat, SEXP lon, SEXP res) {
   return h3rLatLngToCell(lat, lon, res);
 }

@@ -7,7 +7,8 @@
 #include <Rconfig.h>
 #include <R_ext/Rdynload.h>
 
-
+// #include "h3api.h"
+// #include <h3api.h>
 // #include "coordijk.h"
 
 #ifdef HAVE_VISIBILITY_ATTRIBUTE
@@ -122,7 +123,7 @@ extern "C" {
   inline SEXP attribute_hidden h3rCellToChildren(SEXP h3, SEXP childRes) {
     SEXP(*fun)(SEXP, SEXP) =
       (SEXP(*)(SEXP, SEXP)) R_GetCCallable("h3r", "h3rCellToChildren");
-    return fun(h3, parentRes);
+    return fun(h3, childRes);
   }
 
 

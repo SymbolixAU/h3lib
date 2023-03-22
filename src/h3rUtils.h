@@ -41,7 +41,9 @@ SEXP latLngList(SEXP lats, SEXP lons);
 //' Creates a list of lon/lats from a CellBoundary
 SEXP cellBoundaryToList(CellBoundary *cb);
 
-
-
+//' Int To SEXP ARray
+//'
+//' Converts an integer array to a SEXP (INTSXP) array
+SEXP intToSexpArray(int *arr, R_xlen_t n);
 
 #endif

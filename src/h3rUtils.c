@@ -59,3 +59,19 @@ SEXP cellBoundaryToList(CellBoundary *cb) {
    UNPROTECT(2);
    return latLngList(lats, lons);
 }
+
+SEXP intToSexpArray(int *arr, R_xlen_t n) {
+
+  SEXP out = PROTECT(Rf_allocVector(INTSXP, n));
+  R_xlen_t i;
+  for(i = 0; i < n; i++) {
+    SET_INTEGER_ELT(out, i, arr[i]);
+  }
+  UNPROTECT(1);
+  return out;
+}
+
+
+
+
+

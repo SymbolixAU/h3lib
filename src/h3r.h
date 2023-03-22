@@ -23,6 +23,8 @@ SEXP h3rGetBaseCellNumber(SEXP h3);
 SEXP h3rIsValidCell(SEXP h3);
 SEXP h3rIsResClassIII(SEXP h3);
 SEXP h3rIsPentagon(SEXP h3);
+SEXP h3rGetIcosahedronFaces(SEXP h3);
+SEXP h3rMaxFaceCount(SEXP h3);
 
 // Traversal
 
@@ -30,6 +32,16 @@ SEXP h3rIsPentagon(SEXP h3);
 SEXP h3rCellToParent(SEXP h3, SEXP parentResolution);
 SEXP h3rCellToChildren(SEXP h3, SEXP childResolution);
 // SEXP h3rCellToChildrenSize(SEXP h3, SEXP childResolution);
+
+// Regions
+
+// Directed Edges
+
+// Vertexes
+SEXP h3rCellToVertex(SEXP h3, SEXP vertexNum);
+SEXP h3rCellToVertexes(SEXP h3);
+SEXP h3rVertexToLatLng(SEXP h3);
+SEXP h3rIsValidVertex(SEXP h3);
 
 // Miscellaneous
 SEXP h3rGreatCircleDistance(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons, int distType);

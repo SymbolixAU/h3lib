@@ -1,6 +1,6 @@
 
 #include "h3r.h"
-
+#include "h3api.h"
 #include <R.h>
 // #include <Rinternals.h>
 //#include <stdlib.h> // for NULL
@@ -15,16 +15,20 @@
 static const R_CallMethodDef callMethods[] = {
 
   // Indexing
+  {"h3LatLngToCell",    (DL_FUNC) &latLngToCell,    3},
+
   {"h3rLatLngToCell",   (DL_FUNC) &h3rLatLngToCell,   3},
   {"h3rCellToLatLng",   (DL_FUNC) &h3rCellToLatLng,   1},
   {"h3rCellToBoundary", (DL_FUNC) &h3rCellToBoundary, 1},
 
   // Inspection
-  {"h3rGetResolution",     (DL_FUNC) &h3rGetResolution,     1},
-  {"h3rGetBaseCellNumber", (DL_FUNC) &h3rGetBaseCellNumber, 1},
-  {"h3rIsValidCell",       (DL_FUNC) &h3rIsValidCell,       1},
-  {"h3rIsResClassIII",     (DL_FUNC) &h3rIsResClassIII,     1},
-  {"h3rIsPentagon",        (DL_FUNC) &h3rIsPentagon,        1},
+  {"h3rGetResolution",       (DL_FUNC) &h3rGetResolution,       1},
+  {"h3rGetBaseCellNumber",   (DL_FUNC) &h3rGetBaseCellNumber,   1},
+  {"h3rIsValidCell",         (DL_FUNC) &h3rIsValidCell,         1},
+  {"h3rIsResClassIII",       (DL_FUNC) &h3rIsResClassIII,       1},
+  {"h3rIsPentagon",          (DL_FUNC) &h3rIsPentagon,          1},
+  {"h3rGetIcosahedronFaces", (DL_FUNC) &h3rGetIcosahedronFaces, 1},
+  {"h3rMaxFaceCount",        (DL_FUNC) &h3rMaxFaceCount,        1},
 
   // Traversal
 
@@ -44,6 +48,10 @@ static const R_CallMethodDef callMethods[] = {
 
 
   // Vertexes
+  {"h3rCellToVertex",      (DL_FUNC) &h3rCellToVertex,   1},
+  {"h3rCellToVertexes",    (DL_FUNC) &h3rCellToVertexes, 1},
+  {"h3rVertexToLatLng",    (DL_FUNC) &h3rVertexToLatLng, 1},
+  {"h3rIsValidVertex",     (DL_FUNC) &h3rIsValidVertex,  1},
 
 
   // Miscellaneous
@@ -61,16 +69,20 @@ void attribute_visible R_init_h3r(DllInfo *info)
   R_useDynamicSymbols(info, FALSE);
 
   // Indexing
+  R_RegisterCCallable("h3r", "h3LatLngToCell",    (DL_FUNC) &latLngToCell);
+
   R_RegisterCCallable("h3r", "h3rLatLngToCell",    (DL_FUNC) &h3rLatLngToCell);
   R_RegisterCCallable("h3r", "h3rCellToLatLng",    (DL_FUNC) &h3rCellToLatLng);
   R_RegisterCCallable("h3r", "h3rCellToBoundary",  (DL_FUNC) &h3rCellToBoundary);
 
   // Inspection
-  R_RegisterCCallable("h3r", "h3rGetResolution",     (DL_FUNC) &h3rGetResolution);
-  R_RegisterCCallable("h3r", "h3rGetBaseCellNumber", (DL_FUNC) &h3rGetBaseCellNumber);
-  R_RegisterCCallable("h3r", "h3rIsValidCell",       (DL_FUNC) &h3rIsValidCell);
-  R_RegisterCCallable("h3r", "h3rIsResClassIII",     (DL_FUNC) &h3rIsResClassIII);
-  R_RegisterCCallable("h3r", "h3rIsPentagon",        (DL_FUNC) &h3rIsPentagon);
+  R_RegisterCCallable("h3r", "h3rGetResolution",       (DL_FUNC) &h3rGetResolution);
+  R_RegisterCCallable("h3r", "h3rGetBaseCellNumber",   (DL_FUNC) &h3rGetBaseCellNumber);
+  R_RegisterCCallable("h3r", "h3rIsValidCell",         (DL_FUNC) &h3rIsValidCell);
+  R_RegisterCCallable("h3r", "h3rIsResClassIII",       (DL_FUNC) &h3rIsResClassIII);
+  R_RegisterCCallable("h3r", "h3rIsPentagon",          (DL_FUNC) &h3rIsPentagon);
+  R_RegisterCCallable("h3r", "h3rGetIcosahedronFaces", (DL_FUNC) &h3rGetIcosahedronFaces);
+  R_RegisterCCallable("h3r", "SEXP h3rMaxFaceCount",   (DL_FUNC) &h3rMaxFaceCount);
 
   // Traversal
 
@@ -90,6 +102,10 @@ void attribute_visible R_init_h3r(DllInfo *info)
 
 
   // Vertexes
+  R_RegisterCCallable("h3r", "h3rCellToVertex",     (DL_FUNC) &h3rCellToVertex);
+  R_RegisterCCallable("h3r", "h3rCellToVertexes",   (DL_FUNC) &h3rCellToVertexes);
+  R_RegisterCCallable("h3r", "h3rVertexToLatLng",   (DL_FUNC) &h3rVertexToLatLng);
+  R_RegisterCCallable("h3r", "h3rIsValidVertex",    (DL_FUNC) &h3rIsValidVertex);
 
 
   // Miscellaneous

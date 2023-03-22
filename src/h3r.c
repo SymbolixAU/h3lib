@@ -1,14 +1,14 @@
 
-// #define R_NO_REMAP
-#include <R.h>
-#include <Rinternals.h>
-#include <Rdefines.h>
-
-#include "h3api.h"
-#include "algos.h"
-
-#include "h3rUtils.h"
-
+// // #define R_NO_REMAP
+// #include <R.h>
+// #include <Rinternals.h>
+// #include <Rdefines.h>
+//
+// #include "h3api.h"
+// #include "algos.h"
+//
+// #include "h3rUtils.h"
+//
 // SEXP h3StringToH3(SEXP h) {
 //   R_xlen_t n = Rf_xlength(h);
 //
@@ -117,5 +117,3 @@
 //   return result;
 //
 // }
-
-

@@ -11,8 +11,11 @@ e.g:
 
 ```
 
+
+
 ## Design Choices
 
+- There is no `h3` class, or nice printing, or any fancy sugar-coating of what's returned from the functions. I've kept the outputs as raw / primitive as possible
 - All H3Indexes are returned as the String representation. If you want the `H3Index` / `uint64_t` type you need to use the C / C++ functions directly
 
 ## API
