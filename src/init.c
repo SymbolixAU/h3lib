@@ -59,6 +59,10 @@ static const R_CallMethodDef callMethods[] = {
   {"h3rDegsToRads",              (DL_FUNC) &h3rDegsToRads,              1},     // H3 Internal
   {"h3rRadsToDegs",              (DL_FUNC) &h3rRadsToDegs,              1},
 
+  {"h3rCellAreaRads2", (DL_FUNC) &h3rCellAreaRads2, 1},
+  {"h3rCellAreaM2",    (DL_FUNC) &h3rCellAreaM2,    1},
+  {"h3rCellAreaKm2",   (DL_FUNC) &h3rCellAreaKm2,   1},
+
   {"h3rGreatCircleDistanceRads", (DL_FUNC) &h3rGreatCircleDistanceRads, 4},
   {"h3rGreatCircleDistanceM",    (DL_FUNC) &h3rGreatCircleDistanceM,    4},
   {"h3rGreatCircleDistanceKm",   (DL_FUNC) &h3rGreatCircleDistanceKm,   4},
@@ -118,6 +122,10 @@ void attribute_visible R_init_h3r(DllInfo *info)
 
   R_RegisterCCallable("h3r", "h3rDegsToRads",              (DL_FUNC) &h3rDegsToRads);
   R_RegisterCCallable("h3r", "h3rRadsToDegs",              (DL_FUNC) &h3rRadsToDegs);
+
+  R_RegisterCCallable("h3r", "h3rCellAreaRads2", (DL_FUNC) &h3rCellAreaRads2);
+  R_RegisterCCallable("h3r", "h3rCellAreaM2",    (DL_FUNC) &h3rCellAreaM2);
+  R_RegisterCCallable("h3r", "h3rCellAreaKm2",   (DL_FUNC) &h3rCellAreaKm2);
 
   R_RegisterCCallable("h3r", "h3rGreatCircleDistanceRads", (DL_FUNC) &h3rGreatCircleDistanceRads);
   R_RegisterCCallable("h3r", "h3rGreatCircleDistanceM",    (DL_FUNC) &h3rGreatCircleDistanceM);

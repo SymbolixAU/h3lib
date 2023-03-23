@@ -45,6 +45,45 @@ SEXP h3rRadsToDegs(SEXP rads) {
   return out;
 }
 
+SEXP h3rCellArea(SEXP h3, int areaType) {
+  R_xlen_t n = Rf_xlength(h3);
+  R_xlen_t i;
+
+  SEXP out = PROTECT(Rf_allocVector(REALSXP, n));
+
+  H3Index h;
+  double area;
+
+  for( i = 0; i < n; i++ ) {
+    h = sexpStringToH3(h3, i);
+    if(areaType == 0) {
+      cellAreaRads2(h, &area);
+      SET_REAL_ELT(out, i, area);
+    } else if (areaType == 1) {
+      cellAreaM2(h, &area);
+      SET_REAL_ELT(out, i, area);
+    } else {
+      cellAreaKm2(h, &area);
+      SET_REAL_ELT(out, i, area);
+    }
+
+  }
+
+  UNPROTECT(1);
+  return out;
+}
+
+SEXP h3rCellAreaRads2(SEXP h3) {
+  return h3rCellArea(h3, 0);
+}
+
+SEXP h3rCellAreaM2(SEXP h3) {
+  return h3rCellArea(h3, 1);
+}
+
+SEXP h3rCellAreaKm2(SEXP h3) {
+  return h3rCellArea(h3, 2);
+}
 
 SEXP h3rGreatCircleDistance(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons, int distType) {
   R_xlen_t n = Rf_xlength(aLats);

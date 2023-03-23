@@ -29,6 +29,52 @@ radsToDegs <- function(rad) {
   .Call(h3rRadsToDegs, rad)
 }
 
+#' Exact area of specific cell in square radians.
+#'
+#' @param cell vector of H3 cells
+#'
+#' @return the exact area of specific cell in square radians.
+#'
+#' @examples
+#'
+#' cellAreaRads2(cell = c("8cbe63562a54bff","8cbe635631103ff"))
+#'
+#' @export
+cellAreaRads2 <- function(cell) {
+  .Call(h3rCellAreaRads2, cell)
+}
+
+#' Exact area of specific cell in square meters.
+#'
+#' @param cell vector of H3 cells
+#'
+#' @return the exact area of specific cell in square meters.
+#'
+#' @examples
+#'
+#' cellAreaM2(cell = c("8cbe63562a54bff","8cbe635631103ff"))
+#'
+#' @export
+cellAreaM2 <- function(cell) {
+  .Call(h3rCellAreaM2, cell)
+}
+
+#' Exact area of specific cell in square kilometers.
+#'
+#' @param cell vector of H3 cells
+#'
+#' @return the exact area of specific cell in square kilometers.
+#'
+#' @examples
+#'
+#' cellAreaKm2(cell = c("8cbe63562a54bff","8cbe635631103ff"))
+#'
+#' @export
+cellAreaKm2 <- function(cell) {
+  .Call(h3rCellAreaKm2, cell)
+}
+
+
 #' Great Circle Distance In Radians
 #'
 #' @examples

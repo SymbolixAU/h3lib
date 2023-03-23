@@ -175,6 +175,24 @@ inline Direction directionForNeighbor(H3Index origin, H3Index destination) {
     return fun(rad);
   }
 
+  inline SEXP attribute_hidden cellAreaRads2(SEXP h3) {
+    SEXP(*fun)(SEXP) =
+      (SEXP(*)(SEXP)) R_GetCCallable("h3r","h3rCellAreaRads2");
+    return fun(h3);
+  }
+
+  inline SEXP attribute_hidden cellAreaM2(SEXP h3) {
+    SEXP(*fun)(SEXP) =
+      (SEXP(*)(SEXP)) R_GetCCallable("h3r","h3rCellAreaM2");
+    return fun(h3);
+  }
+
+  inline SEXP attribute_hidden cellAreaKm2(SEXP h3) {
+    SEXP(*fun)(SEXP) =
+      (SEXP(*)(SEXP)) R_GetCCallable("h3r","h3rCellAreaKm2");
+    return fun(h3);
+  }
+
   inline SEXP attribute_hidden h3rGreatCircleDistanceRads(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
     SEXP(*fun)(SEXP, SEXP, SEXP, SEXP) =
       (SEXP(*)(SEXP, SEXP, SEXP, SEXP)) R_GetCCallable("h3r","h3rGreatCircleDistanceRads");
@@ -261,6 +279,18 @@ namespace h3r {
 
   inline SEXP radsToDegs(SEXP rad) {
     return h3rRadsToDegs(rad);
+  }
+
+  inline SEXP cellAreaRads2(SEXP h3) {
+    return h3rCellAreaRads2(h3);
+  }
+
+  inline SEXP cellAreaM2(SEXP h3) {
+    return h3rCellAreaM2(h3);
+  }
+
+  inline SEXP cellAreaKm2(SEXP h3) {
+    return h3rCellAreaKm2(h3);
   }
 
   inline SEXP greatCircleDistanceRads(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
