@@ -116,6 +116,77 @@ SEXP h3rCellAreaKm2(SEXP h3) {
   return h3rCellArea(h3, 2);
 }
 
+SEXP h3rGetHexagonEdgeLengthAvg(SEXP res, int distType) {
+  R_xlen_t n = Rf_xlength(res);
+  R_xlen_t i;
+
+  SEXP out = PROTECT(Rf_allocVector(REALSXP, n));
+
+  int ires;
+  double distance;
+
+  for( i = 0; i < n; i++ ) {
+    ires = INTEGER(res)[i];
+    if(distType == 0) {
+      getHexagonEdgeLengthAvgM(ires, &distance);
+      SET_REAL_ELT(out, i, distance);
+    } else {
+      getHexagonEdgeLengthAvgKm(ires, &distance);
+      SET_REAL_ELT(out, i, distance);
+    }
+  }
+
+  UNPROTECT(1);
+  return out;
+}
+
+SEXP h3rGetHexagonEdgeLengthAvgM(SEXP res) {
+  return h3rGetHexagonEdgeLengthAvg(res, 0);
+}
+
+SEXP h3rGetHexagonEdgeLengthAvgKm(SEXP res) {
+  return h3rGetHexagonEdgeLengthAvg(res, 1);
+}
+
+SEXP h3rEdgeLength(SEXP edge, int distType) {
+  R_xlen_t n = Rf_xlength(edge);
+  R_xlen_t i;
+
+  SEXP out = PROTECT(Rf_allocVector(REALSXP, n));
+
+  H3Index h;
+  double distance;
+
+  for( i = 0; i < n; i++ ) {
+    h = sexpStringToH3(edge, i);
+    if(distType == 0) {
+      edgeLengthRads(h, &distance);
+      SET_REAL_ELT(out, i, distance);
+    } else if (distType == 1) {
+      edgeLengthM(h, &distance);
+      SET_REAL_ELT(out, i, distance);
+    } else {
+      edgeLengthKm(h, &distance);
+      SET_REAL_ELT(out, i, distance);
+    }
+  }
+
+  UNPROTECT(1);
+  return out;
+}
+
+SEXP h3rEdgeLengthRads(SEXP edge) {
+  return h3rEdgeLength(edge, 0);
+}
+
+SEXP h3rEdgeLengthM(SEXP edge) {
+  return h3rEdgeLength(edge, 1);
+}
+
+SEXP h3rEdgeLengthKm(SEXP edge) {
+  return h3rEdgeLength(edge, 2);
+}
+
 SEXP h3rGreatCircleDistance(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons, int distType) {
   R_xlen_t n = Rf_xlength(aLats);
   R_xlen_t i;

@@ -205,6 +205,36 @@ inline Direction directionForNeighbor(H3Index origin, H3Index destination) {
     return fun(h3);
   }
 
+  inline SEXP attribute_hidden getHexagonEdgeLengthAvgM(SEXP res) {
+    SEXP(*fun)(SEXP) =
+      (SEXP(*)(SEXP)) R_GetCCallable("h3r","h3rGetHexagonEdgeLengthAvgM");
+    return fun(res);
+  }
+
+  inline SEXP attribute_hidden getHexagonEdgeLengthAvgKm(SEXP res) {
+    SEXP(*fun)(SEXP) =
+      (SEXP(*)(SEXP)) R_GetCCallable("h3r","h3rGetHexagonEdgeLengthAvgKm");
+    return fun(res);
+  }
+
+  inline SEXP attribute_hidden edgeLengthRads(SEXP edge) {
+    SEXP(*fun)(SEXP) =
+      (SEXP(*)(SEXP)) R_GetCCallable("h3r","h3rEdgeLengthRads");
+    return fun(edge);
+  }
+
+  inline SEXP attribute_hidden edgeLengthM(SEXP edge) {
+    SEXP(*fun)(SEXP) =
+      (SEXP(*)(SEXP)) R_GetCCallable("h3r","h3rEdgeLengthM");
+    return fun(edge);
+  }
+
+  inline SEXP attribute_hidden edgeLengthKm(SEXP edge) {
+    SEXP(*fun)(SEXP) =
+      (SEXP(*)(SEXP)) R_GetCCallable("h3r","h3rEdgeLengthKm");
+    return fun(edge);
+  }
+
   inline SEXP attribute_hidden h3rGreatCircleDistanceRads(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {
     SEXP(*fun)(SEXP, SEXP, SEXP, SEXP) =
       (SEXP(*)(SEXP, SEXP, SEXP, SEXP)) R_GetCCallable("h3r","h3rGreatCircleDistanceRads");
@@ -311,6 +341,26 @@ namespace h3r {
 
   inline SEXP cellAreaKm2(SEXP h3) {
     return h3rCellAreaKm2(h3);
+  }
+
+  inline SEXP getHexagonEdgeLengthAvgM(SEXP res) {
+    return h3rGetHexagonEdgeLengthAvgM(res);
+  }
+
+  inline SEXP getHexagonEdgeLengthAvgKm(SEXP res) {
+    return h3rGetHexagonEdgeLengthAvgKm(res);
+  }
+
+  inline SEXP edgeLengthRads(SEXP edge) {
+    return h3rEdgeLengthRads(edge);
+  }
+
+  inline SEXP edgeLengthM(SEXP edge) {
+    return h3rEdgeLengthM(edge);
+  }
+
+  inline SEXP edgeLengthKm(SEXP edge) {
+    return h3rEdgeLengthKm(edge);
   }
 
   inline SEXP greatCircleDistanceRads(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons) {

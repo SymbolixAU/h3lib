@@ -17,6 +17,6 @@ Get the average hexagon area in square kilometers at the given resolution. Exclu
 }
 \examples{
 
-getHexagonAreaAvgKm2(resolution = c("12L","10L"))
+getHexagonAreaAvgKm2(resolution = c(12L,10L))
 
 }

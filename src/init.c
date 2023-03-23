@@ -66,6 +66,13 @@ static const R_CallMethodDef callMethods[] = {
   {"h3rCellAreaRads2", (DL_FUNC) &h3rCellAreaRads2, 1},
   {"h3rCellAreaM2",    (DL_FUNC) &h3rCellAreaM2,    1},
   {"h3rCellAreaKm2",   (DL_FUNC) &h3rCellAreaKm2,   1},
+  
+  {"h3rGetHexagonEdgeLengthAvgM",    (DL_FUNC) &h3rGetHexagonEdgeLengthAvgM,    1},
+  {"h3rGetHexagonEdgeLengthAvgKm",   (DL_FUNC) &h3rGetHexagonEdgeLengthAvgKm,   1},
+
+  {"h3rEdgeLengthRads", (DL_FUNC) &h3rEdgeLengthRads, 1},
+  {"h3rEdgeLengthM",    (DL_FUNC) &h3rEdgeLengthM,    1},
+  {"h3rEdgeLengthKm",   (DL_FUNC) &h3rEdgeLengthKm,   1},
 
   {"h3rGreatCircleDistanceRads", (DL_FUNC) &h3rGreatCircleDistanceRads, 4},
   {"h3rGreatCircleDistanceM",    (DL_FUNC) &h3rGreatCircleDistanceM,    4},

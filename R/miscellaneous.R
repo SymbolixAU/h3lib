@@ -38,7 +38,7 @@ radsToDegs <- function(rad) {
 #'
 #' @examples
 #'
-#' getHexagonAreaAvgM2(resolution = c("12L","10L"))
+#' getHexagonAreaAvgM2(resolution = c(12L,10L))
 #'
 #' @export
 getHexagonAreaAvgM2 <- function(resolution) {
@@ -53,7 +53,7 @@ getHexagonAreaAvgM2 <- function(resolution) {
 #'
 #' @examples
 #'
-#' getHexagonAreaAvgKm2(resolution = c("12L","10L"))
+#' getHexagonAreaAvgKm2(resolution = c(12L,10L))
 #'
 #' @export
 getHexagonAreaAvgKm2 <- function(resolution) {
@@ -105,6 +105,80 @@ cellAreaKm2 <- function(cell) {
   .Call(h3rCellAreaKm2, cell)
 }
 
+#' Get the average hexagon edge length in meters at the given resolution. Excludes pentagons.
+#'
+#' @param resolution cell resolution
+#'
+#' @return Average hexagon edge length in meters at the given resolution. Excludes pentagons.
+#'
+#' @examples
+#'
+#' getHexagonEdgeLengthAvgM(resolution = c(12L,10L))
+#'
+#' @export
+getHexagonEdgeLengthAvgM <- function(resolution) {
+  .Call(h3rGetHexagonEdgeLengthAvgM, resolution)
+}
+
+#' Get the average hexagon edge length in kilometers at the given resolution. Excludes pentagons.
+#'
+#' @param resolution cell resolution
+#'
+#' @return Average hexagon edge length in kilometers at the given resolution. Excludes pentagons.
+#'
+#' @examples
+#'
+#' getHexagonEdgeLengthAvgKm(resolution = c(12L,10L))
+#'
+#' @export
+getHexagonEdgeLengthAvgKm <- function(resolution) {
+  .Call(h3rGetHexagonEdgeLengthAvgKm, resolution)
+}
+
+#' Get the exact edge length of specific unidirectional edge in radians.
+#'
+#' @param edge vector of unidirectional H3 edges
+#'
+#' @return the exact edge length of specific unidirectional edge in radians.
+#'
+#' @examples
+#'
+#' edgeLengthRads(edge = c("13d2a1672b34ffff","16a2a1072b59ffff"))
+#'
+#' @export
+edgeLengthRads <- function(edge) {
+  .Call(h3rEdgeLengthRads, edge)
+}
+
+#' Get the exact edge length of specific unidirectional edge in meters.
+#'
+#' @param edge vector of unidirectional H3 edges
+#'
+#' @return the exact edge length of specific unidirectional edge in meters.
+#'
+#' @examples
+#'
+#' edgeLengthM(edge = c("13d2a1672b34ffff","16a2a1072b59ffff"))
+#'
+#' @export
+edgeLengthM <- function(edge) {
+  .Call(h3rEdgeLengthM, edge)
+}
+
+#' Get the exact edge length of specific unidirectional edge in kilometers.
+#'
+#' @param edge vector of unidirectional H3 edges
+#'
+#' @return the exact edge length of specific unidirectional edge in kilometers.
+#'
+#' @examples
+#'
+#' edgeLengthKm(edge = c("13d2a1672b34ffff","16a2a1072b59ffff"))
+#'
+#' @export
+edgeLengthKm <- function(edge) {
+  .Call(h3rEdgeLengthKm, edge)
+}
 
 #' Great Circle Distance In Radians
 #'

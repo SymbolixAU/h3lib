@@ -47,13 +47,23 @@ SEXP h3rIsValidVertex(SEXP h3);
 SEXP h3rDegsToRads(SEXP degrees);
 SEXP h3rRadsToDegs(SEXP degrees);
 
+SEXP h3rGetHexagonArea(SEXP res, int areaType);
 SEXP h3rGetHexagonAreaAvgM2(SEXP res);
 SEXP h3rGetHexagonAreaAvgKm2(SEXP res);
 
-SEXP h3rCellArea(SEXP h3);
+SEXP h3rCellArea(SEXP h3, int areaType);
 SEXP h3rCellAreaRads2(SEXP h3);
 SEXP h3rCellAreaM2(SEXP h3);
 SEXP h3rCellAreaKm2(SEXP h3);
+
+SEXP h3rGetHexagonEdgeLengthAvg(SEXP res, int distType);
+SEXP h3rGetHexagonEdgeLengthAvgM(SEXP res);
+SEXP h3rGetHexagonEdgeLengthAvgKm(SEXP res);
+
+SEXP h3rEdgeLength(SEXP edge, int distType);
+SEXP h3rEdgeLengthRads(SEXP edge);
+SEXP h3rEdgeLengthM(SEXP edge);
+SEXP h3rEdgeLengthKm(SEXP edge);
 
 SEXP h3rGreatCircleDistance(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons, int distType);
 SEXP h3rGreatCircleDistanceRads(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons);

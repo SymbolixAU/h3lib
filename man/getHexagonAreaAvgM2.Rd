@@ -17,6 +17,6 @@ Get the average hexagon area in square meters at the given resolution. Excludes 
 }
 \examples{
 
-getHexagonAreaAvgM2(resolution = c("12L","10L"))
+getHexagonAreaAvgM2(resolution = c(12L,10L))
 
 }
