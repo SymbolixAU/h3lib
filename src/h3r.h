@@ -65,6 +65,13 @@ SEXP h3rEdgeLengthRads(SEXP edge);
 SEXP h3rEdgeLengthM(SEXP edge);
 SEXP h3rEdgeLengthKm(SEXP edge);
 
+SEXP h3rGetNumCells(SEXP res);
+SEXP h3rGetRes0Cells();
+SEXP h3rRes0CellCount();
+
+SEXP h3rGetPentagons(SEXP res);
+SEXP h3rPentagonCount();
+
 SEXP h3rGreatCircleDistance(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons, int distType);
 SEXP h3rGreatCircleDistanceRads(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons);
 SEXP h3rGreatCircleDistanceM(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons);

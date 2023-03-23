@@ -180,6 +180,75 @@ edgeLengthKm <- function(edge) {
   .Call(h3rEdgeLengthKm, edge)
 }
 
+#' Get the number of unique H3 indexes at the given resolution.
+#'
+#' @param resolution cell resolution
+#'
+#' @return the number of unique H3 indexes at the given resolution, in string.
+#'
+#' @examples
+#'
+#' getNumCells(resolution = c(12L,10L))
+#'
+#' @export
+getNumCells <- function(resolution) {
+  .Call(h3rGetNumCells, resolution)
+}
+
+#' Get all the resolution 0 H3 indexes.
+#'
+#' @return all the resolution 0 H3 indexes.
+#'
+#' @examples
+#'
+#' getRes0Cells()
+#'
+#' @export
+getRes0Cells <- function() {
+  .Call(h3rGetRes0Cells)
+}
+
+#' Get the number of resolution 0 H3 indexes, which is defined as 122.
+#'
+#' @return the number of resolution 0 H3 indexes, which is defined as 122.
+#'
+#' @examples
+#'
+#' res0CellCount()
+#'
+#' @export
+res0CellCount <- function() {
+  .Call(h3rRes0CellCount)
+}
+
+#' Get all the pentagon H3 indexes at the specified resolution.
+#'
+#' @param resolution cell resolution
+#'
+#' @return all the pentagon H3 indexes at the specified resolution.
+#'
+#' @examples
+#'
+#' getPentagons(resolution = c(12L,10L))
+#'
+#' @export
+getPentagons <- function(resolution) {
+  .Call(h3rGetPentagons, resolution)
+}
+
+#' Get the number of pentagon H3 indexes per resolution. This is always 12, but provided as a convenience.
+#'
+#' @return the number of pentagon H3 indexes per resolution.
+#'
+#' @examples
+#'
+#' pentagonCount()
+#'
+#' @export
+pentagonCount <- function() {
+  .Call(h3rPentagonCount)
+}
+
 #' Great Circle Distance In Radians
 #'
 #' @examples

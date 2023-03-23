@@ -66,13 +66,21 @@ static const R_CallMethodDef callMethods[] = {
   {"h3rCellAreaRads2", (DL_FUNC) &h3rCellAreaRads2, 1},
   {"h3rCellAreaM2",    (DL_FUNC) &h3rCellAreaM2,    1},
   {"h3rCellAreaKm2",   (DL_FUNC) &h3rCellAreaKm2,   1},
-  
+
   {"h3rGetHexagonEdgeLengthAvgM",    (DL_FUNC) &h3rGetHexagonEdgeLengthAvgM,    1},
   {"h3rGetHexagonEdgeLengthAvgKm",   (DL_FUNC) &h3rGetHexagonEdgeLengthAvgKm,   1},
 
   {"h3rEdgeLengthRads", (DL_FUNC) &h3rEdgeLengthRads, 1},
   {"h3rEdgeLengthM",    (DL_FUNC) &h3rEdgeLengthM,    1},
   {"h3rEdgeLengthKm",   (DL_FUNC) &h3rEdgeLengthKm,   1},
+
+
+  {"h3rGetNumCells", (DL_FUNC) &h3rGetNumCells, 1},
+  {"h3rGetRes0Cells",    (DL_FUNC) &h3rGetRes0Cells,    0},
+  {"h3rRes0CellCount",   (DL_FUNC) &h3rRes0CellCount,   1},
+
+  {"h3rGetPentagons",    (DL_FUNC) &h3rGetPentagons,    1},
+  {"h3rPentagonCount",   (DL_FUNC) &h3rPentagonCount,   0},
 
   {"h3rGreatCircleDistanceRads", (DL_FUNC) &h3rGreatCircleDistanceRads, 4},
   {"h3rGreatCircleDistanceM",    (DL_FUNC) &h3rGreatCircleDistanceM,    4},
@@ -140,6 +148,13 @@ void attribute_visible R_init_h3r(DllInfo *info)
   R_RegisterCCallable("h3r", "h3rCellAreaRads2", (DL_FUNC) &h3rCellAreaRads2);
   R_RegisterCCallable("h3r", "h3rCellAreaM2",    (DL_FUNC) &h3rCellAreaM2);
   R_RegisterCCallable("h3r", "h3rCellAreaKm2",   (DL_FUNC) &h3rCellAreaKm2);
+
+  R_RegisterCCallable("h3r", "h3rGetNumCells",    (DL_FUNC) &h3rGetNumCells);
+  R_RegisterCCallable("h3r", "h3rGetRes0Cells",   (DL_FUNC) &h3rGetRes0Cells);
+  R_RegisterCCallable("h3r", "h3rRes0CellCount",  (DL_FUNC) &h3rRes0CellCount);
+
+  R_RegisterCCallable("h3r", "h3rGetPentagons",   (DL_FUNC) &h3rGetPentagons);
+  R_RegisterCCallable("h3r", "h3rPentagonCount",  (DL_FUNC) &h3rPentagonCount);
 
   R_RegisterCCallable("h3r", "h3rGreatCircleDistanceRads", (DL_FUNC) &h3rGreatCircleDistanceRads);
   R_RegisterCCallable("h3r", "h3rGreatCircleDistanceM",    (DL_FUNC) &h3rGreatCircleDistanceM);

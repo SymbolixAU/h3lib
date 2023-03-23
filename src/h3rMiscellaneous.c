@@ -187,6 +187,97 @@ SEXP h3rEdgeLengthKm(SEXP edge) {
   return h3rEdgeLength(edge, 2);
 }
 
+SEXP h3rGetNumCells(SEXP res) {
+  R_xlen_t n = Rf_xlength(res);
+  R_xlen_t i;
+
+  SEXP out = PROTECT(Rf_allocVector(STRSXP, n));
+
+  int ires;
+  int64_t num;
+  char buffer[21];
+
+  for( i = 0; i < n; i++ ) {
+    ires = INTEGER(res)[i];
+    getNumCells(ires, &num);
+
+    sprintf(buffer, "%lld", (long long int)num);
+
+    SET_STRING_ELT(out, i, Rf_mkChar(buffer));
+  }
+
+  UNPROTECT(1);
+  return out;
+}
+
+SEXP h3rGetRes0Cells() {
+  int i;
+  int count = res0CellCount();
+
+  SEXP out = PROTECT(Rf_allocVector(STRSXP, count));
+
+  H3Index *re0Cells = calloc(count, sizeof(H3Index));
+  getRes0Cells(re0Cells);
+
+  for( i = 0; i < count; i++ ) {
+    SET_STRING_ELT(out, i, h3ToSexpString(re0Cells[i]));
+  }
+
+  free(re0Cells);
+
+  UNPROTECT(1);
+  return out;
+}
+
+SEXP h3rRes0CellCount() {
+
+  SEXP out = PROTECT(Rf_allocVector(INTSXP, 1));
+
+  int count = res0CellCount();
+
+  SET_INTEGER_ELT(out, 0, count);
+
+  UNPROTECT(1);
+  return out;
+}
+
+SEXP h3rGetPentagons(SEXP res) {
+  R_xlen_t n = Rf_xlength(res);
+  R_xlen_t i;
+
+  int j, ires;
+  int count = pentagonCount();
+
+  SEXP out = PROTECT(Rf_allocVector(STRSXP, n * count));
+
+  H3Index *pentagons = calloc(count, sizeof(H3Index));
+
+  for( i = 0; i < n; i++ ) {
+    ires = INTEGER(res)[i];
+    getPentagons(ires, pentagons);
+    for( j = 0; j < count; j++ ) {
+      SET_STRING_ELT(out, i * count + j, h3ToSexpString(pentagons[j]));
+    }
+  }
+
+  free(pentagons);
+
+  UNPROTECT(1);
+  return out;
+}
+
+SEXP h3rPentagonCount() {
+
+  SEXP out = PROTECT(Rf_allocVector(INTSXP, 1));
+
+  int count = pentagonCount();
+
+  SET_INTEGER_ELT(out, 0, count);
+
+  UNPROTECT(1);
+  return out;
+}
+
 SEXP h3rGreatCircleDistance(SEXP aLats, SEXP aLons, SEXP bLats, SEXP bLons, int distType) {
   R_xlen_t n = Rf_xlength(aLats);
   R_xlen_t i;
