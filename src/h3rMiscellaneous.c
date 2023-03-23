@@ -45,6 +45,38 @@ SEXP h3rRadsToDegs(SEXP rads) {
   return out;
 }
 
+SEXP h3rGetHexagonAreaAvg(SEXP res, int areaType) {
+  R_xlen_t n = Rf_xlength(res);
+  R_xlen_t i;
+
+  SEXP out = PROTECT(Rf_allocVector(REALSXP, n));
+
+  int ires;
+  double area;
+
+  for( i = 0; i < n; i++ ) {
+    ires = INTEGER(res)[i];
+    if(areaType == 0) {
+      getHexagonAreaAvgM2(ires, &area);
+      SET_REAL_ELT(out, i, area);
+    } else {
+      getHexagonAreaAvgKm2(ires, &area);
+      SET_REAL_ELT(out, i, area);
+    }
+  }
+
+  UNPROTECT(1);
+  return out;
+}
+
+SEXP h3rGetHexagonAreaAvgM2(SEXP res) {
+  return h3rGetHexagonAreaAvg(res, 0);
+}
+
+SEXP h3rGetHexagonAreaAvgKm2(SEXP res) {
+  return h3rGetHexagonAreaAvg(res, 1);
+}
+
 SEXP h3rCellArea(SEXP h3, int areaType) {
   R_xlen_t n = Rf_xlength(h3);
   R_xlen_t i;
@@ -66,7 +98,6 @@ SEXP h3rCellArea(SEXP h3, int areaType) {
       cellAreaKm2(h, &area);
       SET_REAL_ELT(out, i, area);
     }
-
   }
 
   UNPROTECT(1);

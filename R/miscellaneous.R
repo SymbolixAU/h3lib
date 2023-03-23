@@ -29,6 +29,37 @@ radsToDegs <- function(rad) {
   .Call(h3rRadsToDegs, rad)
 }
 
+
+#' Get the average hexagon area in square meters at the given resolution. Excludes pentagons.
+#'
+#' @param resolution cell resolution
+#'
+#' @return Average hexagon area in square meters at the given resolution. Excludes pentagons.
+#'
+#' @examples
+#'
+#' getHexagonAreaAvgM2(resolution = c("12L","10L"))
+#'
+#' @export
+getHexagonAreaAvgM2 <- function(resolution) {
+  .Call(h3rGetHexagonAreaAvgM2, resolution)
+}
+
+#' Get the average hexagon area in square kilometers at the given resolution. Excludes pentagons.
+#'
+#' @param resolution cell resolution
+#'
+#' @return Average hexagon area in square kilometers at the given resolution. Excludes pentagons.
+#'
+#' @examples
+#'
+#' getHexagonAreaAvgKm2(resolution = c("12L","10L"))
+#'
+#' @export
+getHexagonAreaAvgKm2 <- function(resolution) {
+  .Call(h3rGetHexagonAreaAvgKm2, resolution)
+}
+
 #' Exact area of specific cell in square radians.
 #'
 #' @param cell vector of H3 cells

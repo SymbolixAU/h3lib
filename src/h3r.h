@@ -47,6 +47,9 @@ SEXP h3rIsValidVertex(SEXP h3);
 SEXP h3rDegsToRads(SEXP degrees);
 SEXP h3rRadsToDegs(SEXP degrees);
 
+SEXP h3rGetHexagonAreaAvgM2(SEXP res);
+SEXP h3rGetHexagonAreaAvgKm2(SEXP res);
+
 SEXP h3rCellArea(SEXP h3);
 SEXP h3rCellAreaRads2(SEXP h3);
 SEXP h3rCellAreaM2(SEXP h3);

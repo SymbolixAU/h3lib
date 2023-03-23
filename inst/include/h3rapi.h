@@ -175,6 +175,18 @@ inline Direction directionForNeighbor(H3Index origin, H3Index destination) {
     return fun(rad);
   }
 
+  inline SEXP attribute_hidden getHexagonAreaAvgM2(SEXP res) {
+    SEXP(*fun)(SEXP) =
+      (SEXP(*)(SEXP)) R_GetCCallable("h3r","h3rGetHexagonAreaAvgM2");
+    return fun(res);
+  }
+
+  inline SEXP attribute_hidden getHexagonAreaAvgKm2(SEXP res) {
+    SEXP(*fun)(SEXP) =
+      (SEXP(*)(SEXP)) R_GetCCallable("h3r","h3rGetHexagonAreaAvgKm2");
+    return fun(res);
+  }
+
   inline SEXP attribute_hidden cellAreaRads2(SEXP h3) {
     SEXP(*fun)(SEXP) =
       (SEXP(*)(SEXP)) R_GetCCallable("h3r","h3rCellAreaRads2");
@@ -279,6 +291,14 @@ namespace h3r {
 
   inline SEXP radsToDegs(SEXP rad) {
     return h3rRadsToDegs(rad);
+  }
+
+  inline SEXP getHexagonAreaAvgM2(SEXP res) {
+    return h3rGetHexagonAreaAvgM2(res);
+  }
+
+  inline SEXP getHexagonAreaAvgKm2(SEXP res) {
+    return h3rGetHexagonAreaAvgKm2(res);
   }
 
   inline SEXP cellAreaRads2(SEXP h3) {
