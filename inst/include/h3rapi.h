@@ -138,6 +138,56 @@ inline Direction directionForNeighbor(H3Index origin, H3Index destination) {
 
   // Traversal
 
+  inline SEXP attribute_hidden gridDisk(SEXP h3, SEXP k) {
+    SEXP(*fun)(SEXP, SEXP) = (SEXP(*)(SEXP, SEXP)) R_GetCCallable("h3r", "h3rGridDisk");
+    return fun(h3, k);
+  }
+
+  inline SEXP attribute_hidden maxGridDiskSize(SEXP k) {
+    SEXP(*fun)(SEXP) = (SEXP(*)(SEXP)) R_GetCCallable("h3r", "h3rMaxGridDiskSize");
+    return fun(k);
+  }
+
+  inline SEXP attribute_hidden gridDiskDistances(SEXP h3, SEXP k) {
+    SEXP(*fun)(SEXP, SEXP) = (SEXP(*)(SEXP, SEXP)) R_GetCCallable("h3r", "h3rGridDiskDistances");
+    return fun(h3, k);
+  }
+
+  inline SEXP attribute_hidden gridDiskUnsafe(SEXP h3, SEXP k) {
+    SEXP(*fun)(SEXP, SEXP) = (SEXP(*)(SEXP, SEXP)) R_GetCCallable("h3r", "h3rGridDiskUnsafe");
+    return fun(h3, k);
+  }
+
+  inline SEXP attribute_hidden gridDiskDistancesUnsafe(SEXP h3, SEXP k) {
+    SEXP(*fun)(SEXP, SEXP) = (SEXP(*)(SEXP, SEXP)) R_GetCCallable("h3r", "h3rGridDiskDistancesUnsafe");
+    return fun(h3, k);
+  }
+
+  inline SEXP attribute_hidden gridDiskDistancesSafe(SEXP h3, SEXP k) {
+    SEXP(*fun)(SEXP, SEXP) = (SEXP(*)(SEXP, SEXP)) R_GetCCallable("h3r", "h3rGridDiskDistancesSafe");
+    return fun(h3, k);
+  }
+
+  inline SEXP attribute_hidden gridRingUnsafe(SEXP h3, SEXP k) {
+    SEXP(*fun)(SEXP, SEXP) = (SEXP(*)(SEXP, SEXP)) R_GetCCallable("h3r", "h3rGridRingUnsafe");
+    return fun(h3, k);
+  }
+
+  inline SEXP attribute_hidden gridPathCells(SEXP origH3, SEXP destH3) {
+    SEXP(*fun)(SEXP, SEXP) = (SEXP(*)(SEXP, SEXP)) R_GetCCallable("h3r", "h3rGridPathCells");
+    return fun(origH3, destH3);
+  }
+
+  inline SEXP attribute_hidden gridPathCellsSize(SEXP origH3, SEXP destH3) {
+    SEXP(*fun)(SEXP, SEXP) = (SEXP(*)(SEXP, SEXP)) R_GetCCallable("h3r", "h3rGridPathCellsSize");
+    return fun(origH3, destH3);
+  }
+
+  inline SEXP attribute_hidden gridDistance(SEXP origH3, SEXP destH3) {
+    SEXP(*fun)(SEXP, SEXP) = (SEXP(*)(SEXP, SEXP)) R_GetCCallable("h3r", "h3rGridDistance");
+    return fun(origH3, destH3);
+  }
+
 
   // Hierarchy
   inline SEXP attribute_hidden h3rCellToParent(SEXP h3, SEXP parentRes) {
@@ -365,6 +415,45 @@ namespace h3r {
 
   // Traversal
 
+  inline SEXP gridDisk(SEXP h3, SEXP k) {
+    return h3rGridDisk(h3, k);
+  }
+
+  inline SEXP maxGridDiskSize(SEXP k) {
+    return h3rMaxGridDiskSize(k);
+  }
+
+  inline SEXP gridDiskDistances(SEXP h3, SEXP k) {
+    return h3rGridDiskDistances(h3, k);
+  }
+
+  inline SEXP gridDiskUnsafe(SEXP h3, SEXP k) {
+    return h3rGridDiskUnsafe(h3, k);
+  }
+
+  inline SEXP gridDiskDistancesUnsafe(SEXP h3, SEXP k) {
+    return h3rGridDiskDistancesUnsafe(h3, k);
+  }
+
+  inline SEXP gridDiskDistancesSafe(SEXP h3, SEXP k) {
+    return h3rGridDiskDistancesSafe(h3, k);
+  }
+
+  inline SEXP gridRingUnsafe(SEXP h3, SEXP k) {
+    return h3rGridRingUnsafe(h3, k);
+  }
+
+  inline SEXP gridPathCells(SEXP origH3, SEXP destH3) {
+    return h3rGridPathCells(origH3, destH3);
+  }
+
+  inline SEXP gridPathCellsSize(SEXP origH3, SEXP destH3) {
+    return h3rGridPathCellsSize(origH3, destH3);
+  }
+
+  inline SEXP gridDistance(SEXP origH3, SEXP destH3) {
+    return h3rGridDistance(origH3, destH3);
+  }
 
   // Hierarchy
   inline SEXP cellToParent(SEXP h3, SEXP parentRes) {

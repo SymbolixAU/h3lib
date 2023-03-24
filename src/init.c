@@ -32,6 +32,16 @@ static const R_CallMethodDef callMethods[] = {
   {"h3rMaxFaceCount",        (DL_FUNC) &h3rMaxFaceCount,        1},
 
   // Traversal
+  {"h3rGridDisk",                 (DL_FUNC) &h3rGridDisk, 2},
+  {"h3rMaxGridDiskSize",          (DL_FUNC) &h3rMaxGridDiskSize, 1},
+  {"h3rGridDiskDistances",        (DL_FUNC) &h3rGridDiskDistances, 2},
+  {"h3rGridDiskUnsafe",           (DL_FUNC) &h3rGridDiskUnsafe, 2},
+  {"h3rGridDiskDistancesUnsafe",  (DL_FUNC) &h3rGridDiskDistancesUnsafe, 2},
+  {"h3rGridDiskDistancesSafe",    (DL_FUNC) &h3rGridDiskDistancesSafe, 2},
+  {"h3rGridRingUnsafe",           (DL_FUNC) &h3rGridRingUnsafe, 2},
+  {"h3rGridPathCells",            (DL_FUNC) &h3rGridPathCells, 2},
+  {"h3rGridPathCellsSize",        (DL_FUNC) &h3rGridPathCellsSize, 2},
+  {"h3rGridDistance",             (DL_FUNC) &h3rGridDistance, 2},
 
   // Hierarchy
   {"h3rCellToParent",        (DL_FUNC) &h3rCellToParent,       2},

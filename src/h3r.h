@@ -27,6 +27,16 @@ SEXP h3rGetIcosahedronFaces(SEXP h3);
 SEXP h3rMaxFaceCount(SEXP h3);
 
 // Traversal
+SEXP h3rGridDisk(SEXP h3, SEXP k);
+SEXP h3rMaxGridDiskSize(SEXP k);
+SEXP h3rGridDiskDistances(SEXP h3, SEXP k);
+SEXP h3rGridDiskUnsafe(SEXP h3, SEXP k) ;
+SEXP h3rGridDiskDistancesUnsafe(SEXP h3, SEXP k) ;
+SEXP h3rGridDiskDistancesSafe(SEXP h3, SEXP k);
+SEXP h3rGridRingUnsafe(SEXP h3, SEXP k);
+SEXP h3rGridPathCells(SEXP origH3, SEXP destH3);
+SEXP h3rGridPathCellsSize(SEXP origH3, SEXP destH3);
+SEXP h3rGridDistance(SEXP origH3, SEXP destH3);
 
 // Hierarchy
 SEXP h3rCellToParent(SEXP h3, SEXP parentResolution);
