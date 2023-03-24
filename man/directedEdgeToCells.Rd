@@ -17,6 +17,6 @@ Get the origin and destination cells of the unidirectional edge
 }
 \examples{
 
-directedEdgeToCells(edge = c("13d2a1672b34ffff","16a2a1072b59ffff"))
+directedEdgeToCells(edge = c("115283473fffffff","115283471fffffff"))
 
 }

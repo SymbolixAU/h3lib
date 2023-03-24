@@ -17,6 +17,6 @@ Get the destination cell of the unidirectional edge
 }
 \examples{
 
-getDirectedEdgeDestination(edge = c("13d2a1672b34ffff","16a2a1072b59ffff"))
+getDirectedEdgeDestination(edge = c("115283473fffffff","16a2a1072b59ffff"))
 
 }

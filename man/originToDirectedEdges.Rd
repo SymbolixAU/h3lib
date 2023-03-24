@@ -10,13 +10,13 @@ originToDirectedEdges(origin)
 \item{origin}{vector of origin H3 cell indexes}
 }
 \value{
-all of the directed edges from the current H3Index
+a vector for each origin with all of the directed edges from the current H3Index
 }
 \description{
 Get all of the directed edges from an origin
 }
 \examples{
 
-originToDirectedEdges(origin = c("8cbe63562a54bff","8cbe635631103ff"))
+originToDirectedEdges(origin = c("85283473fffffff","8cbe635631103ff"))
 
 }
