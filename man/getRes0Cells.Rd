@@ -4,7 +4,7 @@
 \alias{getRes0Cells}
 \title{Get all the resolution 0 H3 indexes.}
 \usage{
-getRes0Cells(resolution)
+getRes0Cells()
 }
 \value{
 all the resolution 0 H3 indexes.

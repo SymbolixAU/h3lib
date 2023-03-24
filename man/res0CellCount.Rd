@@ -4,7 +4,7 @@
 \alias{res0CellCount}
 \title{Get the number of resolution 0 H3 indexes, which is defined as 122.}
 \usage{
-res0CellCount(resolution)
+res0CellCount()
 }
 \value{
 the number of resolution 0 H3 indexes, which is defined as 122.

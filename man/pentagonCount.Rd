@@ -4,7 +4,7 @@
 \alias{pentagonCount}
 \title{Get the number of pentagon H3 indexes per resolution. This is always 12, but provided as a convenience.}
 \usage{
-pentagonCount(resolution)
+pentagonCount()
 }
 \value{
 the number of pentagon H3 indexes per resolution.

@@ -157,7 +157,47 @@ inline Direction directionForNeighbor(H3Index origin, H3Index destination) {
 
 
   // Directed Edges
+  inline SEXP attribute_hidden h3rAreNeighborCells(SEXP origH3, SEXP destH3) {
+    SEXP(*fun)(SEXP, SEXP) =
+      (SEXP(*)(SEXP, SEXP)) R_GetCCallable("h3r", "h3rAreNeighborCells");
+    return fun(origH3, destH3);
+  }
 
+  inline SEXP attribute_hidden h3rCellsToDirectedEdge(SEXP origH3, SEXP destH3) {
+    SEXP(*fun)(SEXP, SEXP) =
+      (SEXP(*)(SEXP, SEXP)) R_GetCCallable("h3r", "h3rCellsToDirectedEdge");
+    return fun(origH3, destH3);
+  }
+
+  inline SEXP attribute_hidden h3rIsValidDirectedEdge(SEXP edge) {
+    SEXP(*fun)(SEXP) =
+      (SEXP(*)(SEXP)) R_GetCCallable("h3r", "h3rIsValidDirectedEdge");
+    return fun(edge);
+  }
+
+  inline SEXP attribute_hidden h3rGetDirectedEdgeOrigin(SEXP edge) {
+    SEXP(*fun)(SEXP) =
+      (SEXP(*)(SEXP)) R_GetCCallable("h3r", "h3rGetDirectedEdgeOrigin");
+    return fun(edge);
+  }
+
+  inline SEXP attribute_hidden h3rGetDirectedEdgeDestination(SEXP edge) {
+    SEXP(*fun)(SEXP) =
+      (SEXP(*)(SEXP)) R_GetCCallable("h3r", "h3rGetDirectedEdgeDestination");
+    return fun(edge);
+  }
+
+  inline SEXP attribute_hidden h3rDirectedEdgeToCells(SEXP edge) {
+    SEXP(*fun)(SEXP) =
+      (SEXP(*)(SEXP)) R_GetCCallable("h3r", "h3rDirectedEdgeToCells");
+    return fun(edge);
+  }
+
+  inline SEXP attribute_hidden h3rOriginToDirectedEdges(SEXP origH3) {
+    SEXP(*fun)(SEXP) =
+      (SEXP(*)(SEXP)) R_GetCCallable("h3r", "h3rOriginToDirectedEdges");
+    return fun(origH3);
+  }
 
   // Vertexes
 
@@ -339,7 +379,33 @@ namespace h3r {
 
 
   // Directed Edges
+  inline SEXP areNeighborCells(SEXP origH3, SEXP destH3) {
+    return h3rDegsToRads(origH3, destH3);
+  }
 
+  inline SEXP cellsToDirectedEdge(SEXP origH3, SEXP destH3) {
+    return h3rCellsToDirectedEdge(origH3, destH3);
+  }
+
+  inline SEXP isValidDirectedEdge(SEXP edge) {
+    return h3rIsValidDirectedEdge(edge);
+  }
+
+  inline SEXP getDirectedEdgeOrigin(SEXP edge) {
+    return h3rGetDirectedEdgeOrigin(edge);
+  }
+
+  inline SEXP getDirectedEdgeDestination(SEXP edge) {
+    return h3rGetDirectedEdgeDestination(edge);
+  }
+
+  inline SEXP directedEdgeToCells(SEXP edge) {
+    return h3rDirectedEdgeToCells(edge);
+  }
+
+  inline SEXP originToDirectedEdges(SEXP origH3) {
+    return h3rOriginToDirectedEdges(origH3);
+  }
 
   // Vertexes
 

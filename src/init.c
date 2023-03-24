@@ -46,6 +46,13 @@ static const R_CallMethodDef callMethods[] = {
 
 
   // Directed Edges
+  {"h3rAreNeighborCells",                 (DL_FUNC) &h3rAreNeighborCells,   2},
+  {"h3rCellsToDirectedEdge",              (DL_FUNC) &h3rCellsToDirectedEdge,   2},
+  {"h3rIsValidDirectedEdge",              (DL_FUNC) &h3rIsValidDirectedEdge,   1},
+  {"h3rGetDirectedEdgeOrigin",            (DL_FUNC) &h3rGetDirectedEdgeOrigin,   1},
+  {"h3rGetDirectedEdgeDestination",       (DL_FUNC) &h3rGetDirectedEdgeDestination,   1},
+  {"h3rDirectedEdgeToCells",              (DL_FUNC) &h3rDirectedEdgeToCells,   1},
+  {"h3rOriginToDirectedEdges",            (DL_FUNC) &h3rOriginToDirectedEdges,   1},
 
 
   // Vertexes
@@ -127,6 +134,13 @@ void attribute_visible R_init_h3r(DllInfo *info)
 
 
   // Directed Edges
+  R_RegisterCCallable("h3r", "h3rAreNeighborCells",             (DL_FUNC) &h3rAreNeighborCells);
+  R_RegisterCCallable("h3r", "h3rCellsToDirectedEdge",          (DL_FUNC) &h3rCellsToDirectedEdge);
+  R_RegisterCCallable("h3r", "h3rIsValidDirectedEdge",          (DL_FUNC) &h3rIsValidDirectedEdge);
+  R_RegisterCCallable("h3r", "h3rGetDirectedEdgeOrigin",        (DL_FUNC) &h3rGetDirectedEdgeOrigin);
+  R_RegisterCCallable("h3r", "h3rGetDirectedEdgeDestination",   (DL_FUNC) &h3rGetDirectedEdgeDestination);
+  R_RegisterCCallable("h3r", "h3rDirectedEdgeToCells",          (DL_FUNC) &h3rDirectedEdgeToCells);
+  R_RegisterCCallable("h3r", "h3rOriginToDirectedEdges",        (DL_FUNC) &h3rOriginToDirectedEdges);
 
 
   // Vertexes

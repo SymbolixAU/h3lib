@@ -10,7 +10,7 @@ getNumCells(resolution)
 \item{resolution}{cell resolution}
 }
 \value{
-the number of unique H3 indexes at the given resolution.
+the number of unique H3 indexes at the given resolution, in string.
 }
 \description{
 Get the number of unique H3 indexes at the given resolution.

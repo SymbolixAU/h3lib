@@ -36,6 +36,11 @@ void latLngToSexp(LatLng *latLng, SEXP lats, SEXP lons, R_xlen_t idx);
 //' Creates a list of lat/lon elements
 SEXP latLngList(SEXP lats, SEXP lons);
 
+//' OrigDestList
+//'
+//' Creates a list of origin and destination cells
+SEXP origDestList(SEXP orig, SEXP dest);
+
 //' CellBoundaryToList
 //'
 //' Creates a list of lon/lats from a CellBoundary

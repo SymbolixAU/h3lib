@@ -248,16 +248,21 @@ SEXP h3rGetPentagons(SEXP res) {
   int j, ires;
   int count = pentagonCount();
 
-  SEXP out = PROTECT(Rf_allocVector(STRSXP, n * count));
+  // SEXP out = PROTECT(Rf_allocVector(STRSXP, n * count));
+  SEXP out = PROTECT(Rf_allocVector(VECSXP, n));
 
   H3Index *pentagons = calloc(count, sizeof(H3Index));
 
   for( i = 0; i < n; i++ ) {
     ires = INTEGER(res)[i];
     getPentagons(ires, pentagons);
+    SEXP group = PROTECT(Rf_allocVector(STRSXP, count));
+
     for( j = 0; j < count; j++ ) {
-      SET_STRING_ELT(out, i * count + j, h3ToSexpString(pentagons[j]));
+      SET_STRING_ELT(group, j, h3ToSexpString(pentagons[j]));
     }
+
+    SET_VECTOR_ELT(out, i, group);
   }
 
   free(pentagons);

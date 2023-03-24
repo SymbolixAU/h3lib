@@ -48,6 +48,16 @@ SEXP latLngList(SEXP lats, SEXP lons) {
   return res;
 }
 
+SEXP origDestList(SEXP orig, SEXP dest) {
+  const char *names[] = {"origin","destination",""};
+  SEXP res = PROTECT(mkNamed(VECSXP, names));
+
+  SET_VECTOR_ELT(res, 0, orig);
+  SET_VECTOR_ELT(res, 1, dest);
+  UNPROTECT(1);
+  return res;
+}
+
 
 SEXP cellBoundaryToList(CellBoundary *cb) {
    SEXP lats = PROTECT(Rf_allocVector(REALSXP, cb->numVerts));

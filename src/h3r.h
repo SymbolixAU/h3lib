@@ -36,6 +36,13 @@ SEXP h3rCellToChildren(SEXP h3, SEXP childResolution);
 // Regions
 
 // Directed Edges
+SEXP h3rAreNeighborCells(SEXP origH3, SEXP destH3); 
+SEXP h3rCellsToDirectedEdge(SEXP origH3, SEXP destH3);
+SEXP h3rIsValidDirectedEdge(SEXP edge);
+SEXP h3rGetDirectedEdgeOrigin(SEXP edge);
+SEXP h3rGetDirectedEdgeDestination(SEXP edge);
+SEXP h3rDirectedEdgeToCells(SEXP edge);
+SEXP h3rOriginToDirectedEdges(SEXP origH3);
 
 // Vertexes
 SEXP h3rCellToVertex(SEXP h3, SEXP vertexNum);
