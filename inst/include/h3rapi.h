@@ -58,6 +58,17 @@ typedef struct {
   int j;  ///< j component
 } CoordIJ;
 
+inline int stringToH3(const char *str, H3Index *out) {
+  int(*fun)(const char*, H3Index*) =
+    (int(*)(const char*, H3Index*)) R_GetCCallable("h3r","stringToH3");
+  return fun(str, out);
+}
+
+inline int h3ToString(H3Index h3, char *str, size_t sz) {
+  int(*fun)(H3Index, char*, size_t) =
+    (int(*)(H3Index, char*, size_t)) R_GetCCallable("h3r", "h3ToString");
+  return fun(h3, str, sz);
+}
 
 inline double degsToRads(double degrees) {
   double(*fun)(double) =
@@ -77,6 +88,22 @@ inline int latLngToCell(const LatLng *g, int res, H3Index *out) {
     (int(*)(const LatLng*, int, H3Index*)) R_GetCCallable("h3r","latLngToCell");
   return fun(g, res, out);
 }
+
+
+inline int gridPathCellsSize(H3Index start, H3Index end, int64_t *size) {
+  int(*fun)(H3Index, H3Index, int64_t*) =
+    (int(*)(H3Index, H3Index, int64_t*)) R_GetCCallable("h3r", "gridPathCellsSize");
+  return fun(start, end, size);
+}
+
+
+
+inline int gridPathCells(H3Index start, H3Index end, H3Index *out) {
+  int(*fun)(H3Index, H3Index, H3Index*) =
+    (int(*)(H3Index, H3Index, H3Index*)) R_GetCCallable("h3r", "gridPathCells");
+  return fun(start, end, out);
+}
+
 
 inline Direction directionForNeighbor(H3Index origin, H3Index destination) {
   Direction(*fun)(H3Index, H3Index) =

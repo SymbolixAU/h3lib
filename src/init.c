@@ -81,6 +81,9 @@ void attribute_visible R_init_h3r(DllInfo *info)
   R_RegisterCCallable("h3r", "h3rCellToBoundary",  (DL_FUNC) &h3rCellToBoundary);
 
   // Inspection
+  R_RegisterCCallable("h3r", "stringToH3",  (DL_FUNC) &stringToH3); // H3 Internal
+  R_RegisterCCallable("h3r", "h3ToString",  (DL_FUNC) &h3ToString);
+
   R_RegisterCCallable("h3r", "h3rGetResolution",       (DL_FUNC) &h3rGetResolution);
   R_RegisterCCallable("h3r", "h3rGetBaseCellNumber",   (DL_FUNC) &h3rGetBaseCellNumber);
   R_RegisterCCallable("h3r", "h3rIsValidCell",         (DL_FUNC) &h3rIsValidCell);
@@ -90,6 +93,8 @@ void attribute_visible R_init_h3r(DllInfo *info)
   R_RegisterCCallable("h3r", "h3rMaxFaceCount",        (DL_FUNC) &h3rMaxFaceCount);
 
   // Traversal
+  R_RegisterCCallable("h3r", "gridPathCellsSize",     (DL_FUNC) &gridPathCellsSize);
+  R_RegisterCCallable("h3r", "gridPathCells",     (DL_FUNC) &gridPathCells);
 
   // Hierarchy
   R_RegisterCCallable("h3r", "h3rCellToParent",          (DL_FUNC) &h3rCellToParent);
