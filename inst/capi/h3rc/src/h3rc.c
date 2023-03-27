@@ -3,6 +3,7 @@
 #include <R.h>
 #include <Rinternals.h>
 #include "h3libapi.h"
+#include "h3rc.h"
 
 SEXP h3rcLatLngToCell(SEXP lat, SEXP lon, SEXP res) {
   return h3rLatLngToCell(lat, lon, res);

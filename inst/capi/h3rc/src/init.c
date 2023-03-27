@@ -19,7 +19,7 @@ static const R_CallMethodDef callMethods[] = {
 /* Imports from h3r */
 // int (*directionForNeighbor)(H3Index, H3Index);
 // SEXP (*h3rLatLngToCell)(SEXP,SEXP,SEXP);
-// void (*h3LatLngToCell)(const LatLng *g, int res, H3Index *out)
+// void (*h3LatLngToCell)(const LatLng *g, int res, H3Index *out);
 
 void R_init_h3rc(DllInfo *info)
 

@@ -83,10 +83,10 @@ inline double degsToRads(double degrees) {
   return fun(degrees);
 }
 
-inline double radsToDegs(double degrees) {
+inline double radsToDegs(double radians) {
   double(*fun)(double) =
     (double(*)(double)) R_GetCCallable("h3lib", "radsToDegs");
-  return fun(degrees);
+  return fun(radians);
 }
 
 
@@ -134,9 +134,9 @@ inline Direction directionForNeighbor(H3Index origin, H3Index destination) {
 }
 
 
-namespace h3r {
-
-}
+// namespace h3lib {
+//
+// }
 
 
 #endif  // __cplusplus
