@@ -65,31 +65,9 @@ typedef struct {
   int j;  ///< j component
 } CoordIJ;
 
-inline int stringToH3(const char *str, H3Index *out) {
-  int(*fun)(const char*, H3Index*) =
-    (int(*)(const char*, H3Index*)) R_GetCCallable("h3lib","stringToH3");
-  return fun(str, out);
-}
-
-inline int h3ToString(H3Index h3, char *str, size_t sz) {
-  int(*fun)(H3Index, char*, size_t) =
-    (int(*)(H3Index, char*, size_t)) R_GetCCallable("h3lib", "h3ToString");
-  return fun(h3, str, sz);
-}
-
-inline double degsToRads(double degrees) {
-  double(*fun)(double) =
-    (double(*)(double)) R_GetCCallable("h3lib", "degsToRads");
-  return fun(degrees);
-}
-
-inline double radsToDegs(double radians) {
-  double(*fun)(double) =
-    (double(*)(double)) R_GetCCallable("h3lib", "radsToDegs");
-  return fun(radians);
-}
 
 
+// Indexing
 inline int latLngToCell(const LatLng *g, int res, H3Index *out) {
   int(*fun)(const LatLng*, int, H3Index*) =
     (int(*)(const LatLng*, int, H3Index*)) R_GetCCallable("h3lib","latLngToCell");
@@ -109,6 +87,54 @@ inline int cellToBoundary(H3Index h3, CellBoundary *gp) {
   return fun(h3, gp);
 }
 
+
+// Inspection
+inline int getResolution(H3Index h) {
+  int(*fun)(H3Index) =
+    (int(*)(H3Index)) R_GetCCallable("h3lib", "getResolution");
+  return fun(h);
+}
+
+inline int getBaseCellNumber(H3Index h) {
+  int(*fun)(H3Index) =
+    (int(*)(H3Index)) R_GetCCallable("h3lib", "getBaseCellNumber");
+  return fun(h);
+}
+
+
+inline int stringToH3(const char *str, H3Index *out) {
+  int(*fun)(const char*, H3Index*) =
+    (int(*)(const char*, H3Index*)) R_GetCCallable("h3lib","stringToH3");
+  return fun(str, out);
+}
+
+inline int h3ToString(H3Index h3, char *str, size_t sz) {
+  int(*fun)(H3Index, char*, size_t) =
+    (int(*)(H3Index, char*, size_t)) R_GetCCallable("h3lib", "h3ToString");
+  return fun(h3, str, sz);
+}
+
+inline int isValidCell(H3Index h) {
+  int(*fun)(H3Index) =
+    (int(*)(H3Index)) R_GetCCallable("h3lib", "isValidCell");
+  return fun(h);
+}
+
+inline int isResClassIII(H3Index h) {
+  int(*fun)(H3Index) =
+    (int(*)(H3Index)) R_GetCCallable("h3lib", "isResClassIII");
+  return fun(h);
+}
+
+inline int isPentagon(H3Index h) {
+  int(*fun)(H3Index) =
+    (int(*)(H3Index)) R_GetCCallable("h3lib", "isPentagon");
+  return fun(h);
+}
+
+
+
+// Traversal
 inline int gridPathCellsSize(H3Index start, H3Index end, int64_t *size) {
   int(*fun)(H3Index, H3Index, int64_t*) =
     (int(*)(H3Index, H3Index, int64_t*)) R_GetCCallable("h3lib", "gridPathCellsSize");
@@ -123,12 +149,27 @@ inline int gridPathCells(H3Index start, H3Index end, H3Index *out) {
 }
 
 
+
+// Miscellaneous
+inline double degsToRads(double degrees) {
+  double(*fun)(double) =
+    (double(*)(double)) R_GetCCallable("h3lib", "degsToRads");
+  return fun(degrees);
+}
+
+inline double radsToDegs(double radians) {
+  double(*fun)(double) =
+    (double(*)(double)) R_GetCCallable("h3lib", "radsToDegs");
+  return fun(radians);
+}
+
+// Non-API
+
 inline Direction directionForNeighbor(H3Index origin, H3Index destination) {
   Direction(*fun)(H3Index, H3Index) =
     (Direction(*)(H3Index, H3Index)) R_GetCCallable("h3lib", "directionForNeighbor");
   return fun(origin, destination);
 }
-
 
 #ifdef __cplusplus
 }
