@@ -4,7 +4,7 @@
 
 #include <Rinternals.h>
 
-#include <h3rapi.h>
+#include <h3libapi.h>
 
 SEXP h3rcLatLngToCell(SEXP lat, SEXP lon, SEXP res);
 
