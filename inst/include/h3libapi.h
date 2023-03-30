@@ -7,9 +7,7 @@
 #include <Rconfig.h>
 #include <R_ext/Rdynload.h>
 
-// #include "h3api.h"
-// #include <h3api.h>
-// #include "coordijk.h"
+// #include "h3api.h" <-- can't include this as it' can't be found by linking packages
 
 #ifdef HAVE_VISIBILITY_ATTRIBUTE
 # define attribute_hidden __attribute__ ((visibility ("hidden")))
@@ -20,8 +18,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-// Forwarding some useful structures
 
 typedef uint32_t H3Error;
 

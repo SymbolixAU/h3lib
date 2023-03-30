@@ -1,5 +1,5 @@
 
-#include "h3api.h"
+// #include "h3api.h"
 
 #include "algos.h" // directionForNeighbor
 
@@ -108,7 +108,7 @@ void attribute_visible R_init_h3lib(DllInfo *info)
   R_RegisterCCallable("h3lib", "greatCircleDistanceRads",   (DL_FUNC) &greatCircleDistanceRads);
 
   // Non-API
-  R_RegisterCCallable("h3lib", "directionForNeighbor",      (DL_FUNC) &directionForNeighbor);
+  R_RegisterCCallable("h3lib", "directionForNeighbor",        (DL_FUNC) &directionForNeighbor);
 
 
   R_forceSymbols(info, TRUE);  // controls visibility
