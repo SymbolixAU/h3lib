@@ -6,6 +6,7 @@ repo_src="src/h3lib"
 input_file="$repo_folder/$repo_src/lib/h3api.h"
 output_file="$repo_folder/$repo_src/lib/init.c"
 output_file_2="h3libapi.h"
+compare_file="inst/include/h3libapi.h"
 
 echo "Update from uber/h3? (y/n)"
 read -r answer
@@ -53,30 +54,62 @@ extern \"C\" {
 typedef uint32_t H3Error;
 
 typedef enum {
-/** H3 digit in center */
-CENTER_DIGIT = 0,
-/** H3 digit in k-axes direction */
-K_AXES_DIGIT = 1,
-/** H3 digit in j-axes direction */
-J_AXES_DIGIT = 2,
-/** H3 digit in j == k direction */
-JK_AXES_DIGIT = J_AXES_DIGIT | K_AXES_DIGIT, /* 3 */
-/** H3 digit in i-axes direction */
-I_AXES_DIGIT = 4,
-/** H3 digit in i == k direction */
-IK_AXES_DIGIT = I_AXES_DIGIT | K_AXES_DIGIT, /* 5 */
-/** H3 digit in i == j direction */
-IJ_AXES_DIGIT = I_AXES_DIGIT | J_AXES_DIGIT, /* 6 */
-/** H3 digit in the invalid direction */
-INVALID_DIGIT = 7,
-/** Valid digits will be less than this value. Same value as INVALID_DIGIT.
-*/
-NUM_DIGITS = INVALID_DIGIT,
-/** Child digit which is skipped for pentagons */
-PENTAGON_SKIPPED_DIGIT = K_AXES_DIGIT /* 1 */
+    /** H3 digit in center */
+    CENTER_DIGIT = 0,
+    /** H3 digit in k-axes direction */
+    K_AXES_DIGIT = 1,
+    /** H3 digit in j-axes direction */
+    J_AXES_DIGIT = 2,
+    /** H3 digit in j == k direction */
+    JK_AXES_DIGIT = J_AXES_DIGIT | K_AXES_DIGIT, /* 3 */
+    /** H3 digit in i-axes direction */
+    I_AXES_DIGIT = 4,
+    /** H3 digit in i == k direction */
+    IK_AXES_DIGIT = I_AXES_DIGIT | K_AXES_DIGIT, /* 5 */
+    /** H3 digit in i == j direction */
+    IJ_AXES_DIGIT = I_AXES_DIGIT | J_AXES_DIGIT, /* 6 */
+    /** H3 digit in the invalid direction */
+    INVALID_DIGIT = 7,
+    /** Valid digits will be less than this value. Same value as INVALID_DIGIT.
+    */
+    NUM_DIGITS = INVALID_DIGIT,
+    /** Child digit which is skipped for pentagons */
+    PENTAGON_SKIPPED_DIGIT = K_AXES_DIGIT /* 1 */
 } Direction;
 
 typedef uint64_t H3Index;"
+
+        structure=$(sed -n '/^#define MAX_CELL_BNDRY_VERTS 10/,/^\/\*\* @defgroup/p' $input_file | sed '$d')
+
+        content+="$structure"
+
+        input_combined=""
+        while IFS= read -r line; do
+        line=$(echo "$line" | tr -d '\r')
+        if [[ -z $input_combined ]]; then
+            input_combined="$line"
+        else
+            input_combined+=" $line"
+        fi
+        if [[ $line =~ ";" ]]; then
+            input_combined+=$'\n'
+        fi
+        done < "$input_file"
+
+        # Extract function names and arguments together
+        func_arg_pairs=$(echo "$input_combined" | sed -n 's/^.*H3_EXPORT(\([^)]*\))\s*(\([^)]*\)).*$/\1|\2/p' | grep -v '^name$')
+
+        # Convert to an array
+        IFS=$'\n' read -d '' -ra func_arg_arr <<< "$func_arg_pairs"
+
+        for pair in "${func_arg_arr[@]}"; do
+            # Split function name and arguments using '|' as the delimiter
+            IFS='|' read -ra func_arg <<< "$pair"
+            func="${func_arg[0]}"
+            arg="${func_arg[1]}"
+            arg=$(echo "$arg" | awk '{$1=$1};1')
+            content+="\n\ninline H3Error ${func}( ${arg} ) {\n  H3Error(*fun)( ${arg} ) =\n    (H3Error(*)( ${arg} )) R_GetCCallable(\"h3lib\",\"${func}\");\n  return fun( ${arg//, /, } );\n}"
+        done
 
         content+="
 
@@ -106,6 +139,7 @@ return fun(origin, destination);
 
         echo -e "\nDifferences:"
         diff -r --exclude='*.o' "${repo_folder}/${repo_src}/lib" "$compare_folder/"
+        diff "$repo_folder/$output_file_2" "$compare_file"
 
         echo -e "\nInstall the update? (y/n)"
         read -r answer
