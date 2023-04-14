@@ -13,7 +13,7 @@ read -r answer
 
 case $answer in
     [Nn]* ) echo "Quitting..."; exit;;
-    [Yy]* ) 
+    [Yy]* )
         git clone "$repo_url" "$repo_folder" || { echo "Error cloning repository"; exit 1; }
         mv $repo_folder/$repo_src/include/* $repo_folder/$repo_src/lib
         mv $repo_folder/$repo_src/lib/h3api.h.in $repo_folder/$repo_src/lib/h3api.h
@@ -77,7 +77,8 @@ typedef enum {
     PENTAGON_SKIPPED_DIGIT = K_AXES_DIGIT /* 1 */
 } Direction;
 
-typedef uint64_t H3Index;"
+typedef uint64_t H3Index;
+"
 
         structure=$(sed -n '/^#define MAX_CELL_BNDRY_VERTS 10/,/^\/\*\* @defgroup/p' $input_file | sed '$d')
 
@@ -85,35 +86,44 @@ typedef uint64_t H3Index;"
 
         input_combined=""
         while IFS= read -r line; do
-        line=$(echo "$line" | tr -d '\r')
-        if [[ -z $input_combined ]]; then
-            input_combined="$line"
-        else
-            input_combined+=" $line"
-        fi
-        if [[ $line =~ ";" ]]; then
+          line=$(echo "$line" | tr -d '\r')
+          input_combined+="${line} "
+          if [[ $line =~ ";" ]]; then
             input_combined+=$'\n'
-        fi
+          fi
         done < "$input_file"
 
+        # Remove excessive spaces
+        input_combined=$(echo "$input_combined" | tr -s ' ')
+
         # Extract function names and arguments together
-        func_arg_pairs=$(echo "$input_combined" | sed -n 's/^.*H3_EXPORT(\([^)]*\))\s*(\([^)]*\)).*$/\1|\2/p' | grep -v '^name$')
+        func_arg_pairs=$(echo "$input_combined" | sed -n 's/^.*DECLSPEC\s*\([^)]*\)\s*H3_EXPORT(\([^)]*\))\s*(\([^)]*\)).*$/\1|\2|\3/p')
 
         # Convert to an array
         IFS=$'\n' read -d '' -ra func_arg_arr <<< "$func_arg_pairs"
 
         for pair in "${func_arg_arr[@]}"; do
-            # Split function name and arguments using '|' as the delimiter
-            IFS='|' read -ra func_arg <<< "$pair"
-            func="${func_arg[0]}"
-            arg="${func_arg[1]}"
-            arg=$(echo "$arg" | awk '{$1=$1};1')
-            content+="\n\ninline H3Error ${func}( ${arg} ) {\n  H3Error(*fun)( ${arg} ) =\n    (H3Error(*)( ${arg} )) R_GetCCallable(\"h3lib\",\"${func}\");\n  return fun( ${arg//, /, } );\n}"
+          # Split function name and arguments using '|' as the delimiter
+          IFS='|' read -ra func_arg <<< "$pair"
+          ret="${func_arg[0]}"
+          func="${func_arg[1]}"
+          arg="${func_arg[2]}"
+          arg="${arg//, /, }"
+
+          # Extract argument types and remove argument names
+          arg_types=$(echo "$arg" | sed -E 's/([a-zA-Z0-9_]+) \*([a-zA-Z0-9_]+)/\1* \2/g' | sed -E 's/([a-zA-Z0-9_*]+) ([a-zA-Z0-9_]+)(,|$)/\1\3/g')
+          arg_name=$(echo "$arg" | sed -E 's/([a-zA-Z0-9_]+) ([a-zA-Z0-9_]+) ([a-zA-Z0-9_*]+)/\2 \3/g'| sed -E 's/([a-zA-Z0-9_]+) ([a-zA-Z0-9_*]+)/\2/g'| sed -E 's/\*([a-zA-Z0-9_]+)/\1/g')
+
+          if [[ "$ret" == *"void"* ]]; then
+            content+="\n\ninline ${ret} ${func}( ${arg} ) {\n  ${ret}(*fun)( ${arg_types} ) =\n    (${ret}(*)( ${arg_types} )) R_GetCCallable(\"h3lib\",\"${func}\");\n  fun( ${arg_name} );\n}"
+          else
+            content+="\n\ninline ${ret} ${func}( ${arg} ) {\n  ${ret}(*fun)( ${arg_types} ) =\n    (${ret}(*)( ${arg_types} )) R_GetCCallable(\"h3lib\",\"${func}\");\n  return fun( ${arg_name} );\n}"
+          fi
         done
 
         content+="
 
-        
+
 // Non-API
 inline Direction directionForNeighbor(H3Index origin, H3Index destination) {
 Direction(*fun)(H3Index, H3Index) =
@@ -144,13 +154,14 @@ return fun(origin, destination);
         echo -e "\nInstall the update? (y/n)"
         read -r answer
         case $answer in
-            [Nn]* ) 
+            [Nn]* )
                 rm -rf $repo_folder
                 echo "Removing files and quitting..."; exit;;
             [Yy]* )
                 rm -rf $compare_folder
                 mkdir $compare_folder
                 mv $repo_folder/$repo_src/lib/* $compare_folder/
+                mv $repo_folder/$output_file_2 $compare_file
                 rm -rf $repo_folder
                 echo "Finished update"
             ;;
