@@ -21,6 +21,17 @@ extern "C" {
 
 typedef uint32_t H3Error;
 
+  /** The number of faces on an icosahedron */
+#define NUM_ICOSA_FACES 20
+  /** The number of H3 base cells */
+#define NUM_BASE_CELLS 122
+  /** The number of vertices in a hexagon */
+#define NUM_HEX_VERTS 6
+  /** The number of vertices in a pentagon */
+#define NUM_PENT_VERTS 5
+  /** The number of pentagons per resolution **/
+#define NUM_PENTAGONS 12
+
 typedef enum {
 /** H3 digit in center */
 CENTER_DIGIT = 0,
@@ -103,6 +114,60 @@ typedef struct {
   int j;  ///< j component
 } CoordIJ;
 
+/** @struct CoordIJK
+ * @brief IJK hexagon coordinates
+ *
+ * Each axis is spaced 120 degrees apart.
+ */
+typedef struct {
+  int i;  ///< i component
+  int j;  ///< j component
+  int k;  ///< k component
+} CoordIJK;
+
+/** @brief CoordIJK unit vectors corresponding to the 7 H3 digits.
+ */
+static const CoordIJK UNIT_VECS[] = {
+  {0, 0, 0},  // direction 0
+  {0, 0, 1},  // direction 1
+  {0, 1, 0},  // direction 2
+  {0, 1, 1},  // direction 3
+  {1, 0, 0},  // direction 4
+  {1, 0, 1},  // direction 5
+  {1, 1, 0}   // direction 6
+};
+
+/** @struct FaceIJK
+ * @brief Face number and ijk coordinates on that face-centered coordinate
+ * system
+ */
+typedef struct {
+  int face;        ///< face number
+  CoordIJK coord;  ///< ijk coordinates on that face
+} FaceIJK;
+
+/** @struct FaceOrientIJK
+ * @brief Information to transform into an adjacent face IJK system
+ */
+typedef struct {
+  int face;            ///< face number
+  CoordIJK translate;  ///< res 0 translation relative to primary face
+  int ccwRot60;  ///< number of 60 degree ccw rotations relative to primary
+  /// face
+} FaceOrientIJK;
+
+extern const LatLng faceCenterGeo[NUM_ICOSA_FACES];
+
+// indexes for faceNeighbors table
+/** IJ quadrant faceNeighbors table direction */
+#define IJ 1
+/** KI quadrant faceNeighbors table direction */
+#define KI 2
+/** JK quadrant faceNeighbors table direction */
+#define JK 3
+
+/** Invalid face index */
+#define INVALID_FACE -1
 
 
 // Indexing
@@ -553,6 +618,8 @@ inline Direction directionForNeighbor(H3Index origin, H3Index destination) {
     (Direction(*)(H3Index, H3Index)) R_GetCCallable("h3lib", "directionForNeighbor");
   return fun(origin, destination);
 }
+
+
 
 #ifdef __cplusplus
 }
