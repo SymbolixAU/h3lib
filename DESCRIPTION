@@ -1,6 +1,6 @@
 Package: h3lib
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Exposes the 'Uber' 'H3' library
 Version: 0.1.1
 Authors@R: c(
     person("David", "Cooley", ,"david.cooley.au@gmail.com", role = c("aut", "cre"))
