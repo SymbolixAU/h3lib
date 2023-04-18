@@ -30,6 +30,47 @@ case $answer in
         content+="\n\n  // Non-API\n  R_RegisterCCallable(\"h3lib\", \"directionForNeighbor\",        (DL_FUNC) &directionForNeighbor);\n\n  R_forceSymbols(info, TRUE);  // controls visibility\n\n}\n\nvoid R_unload_h3lib(DllInfo *info)\n{\n  // TODO:\n  /* Release Resources */\n}"
         echo -e "$content" > "$output_file"
 
+        # Compare error code
+        error_originial="typedef uint32_t H3Error;
+
+typedef enum {
+    E_SUCCESS = 0,  // Success (no error)
+    E_FAILED =
+        1,  // The operation failed but a more specific error is not available
+    E_DOMAIN = 2,  // Argument was outside of acceptable range (when a more
+                   // specific error code is not available)
+    E_LATLNG_DOMAIN =
+        3,  // Latitude or longitude arguments were outside of acceptable range
+    E_RES_DOMAIN = 4,    // Resolution argument was outside of acceptable range
+    E_CELL_INVALID = 5,  // \`H3Index\` cell argument was not valid
+    E_DIR_EDGE_INVALID = 6,  // \`H3Index\` directed edge argument was not valid
+    E_UNDIR_EDGE_INVALID =
+        7,                 // \`H3Index\` undirected edge argument was not valid
+    E_VERTEX_INVALID = 8,  // \`H3Index\` vertex argument was not valid
+    E_PENTAGON = 9,  // Pentagon distortion was encountered which the algorithm
+                     // could not handle it
+    E_DUPLICATE_INPUT = 10,  // Duplicate input was encountered in the arguments
+                             // and the algorithm could not handle it
+    E_NOT_NEIGHBORS = 11,    // \`H3Index\` cell arguments were not neighbors
+    E_RES_MISMATCH =
+        12,  // \`H3Index\` cell arguments had incompatible resolutions
+    E_MEMORY_ALLOC = 13,   // Necessary memory allocation failed
+    E_MEMORY_BOUNDS = 14,  // Bounds of provided memory were not large enough
+    E_OPTION_INVALID = 15  // Mode or flags argument was not valid.
+} H3ErrorCodes;"
+
+        extracted_text=$(sed -n '/typedef uint32_t H3Error;/,/H3ErrorCodes;/p' "$input_file")
+
+        # Create temporary files for the extracted text and the target string
+        extracted_file=$(mktemp)
+        target_file=$(mktemp)
+
+        # Save the extracted text and the target string into the temporary files
+        echo "$extracted_text" > "$extracted_file"
+        echo "$error_originial" > "$target_file"
+
+        diff_output=$(diff "$target_file" "$extracted_file")
+
         # Build the h3libapi.h
         content="#ifndef R_H3LIB_API_H
 #define R_H3LIB_API_H
@@ -150,6 +191,15 @@ return fun(origin, destination);
         echo -e "\nDifferences:"
         diff -r --exclude='*.o' "${repo_folder}/${repo_src}/lib" "$compare_folder/"
         diff "$repo_folder/$output_file_2" "$compare_file"
+
+        # Display the difference in H3Error
+        if [[ -z "$diff_output" ]]; then
+          echo "No changes to H3Error"
+        else
+          echo "H3Error has been changed, please update it and the script manually"
+          echo "Difference:"
+          echo "$diff_output"
+        fi
 
         echo -e "\nInstall the update? (y/n)"
         read -r answer
