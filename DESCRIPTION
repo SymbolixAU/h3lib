@@ -3,7 +3,7 @@ Type: Package
 Title: Exposes the 'Uber' 'H3' library to R packages
 Version: 0.1.1
 Authors@R: c(
-    person("David", "Cooley", ,"david.cooley.au@gmail.com", role = c("aut", "cre")),
+    person("David", "Cooley", ,"dcooley@symbolix.com.au", role = c("aut", "cre")),
     person("Ray", "Shao", ,"rshao@symbolix.com.au", role = c("ctb"))
     )
 Description: Registers the 'H3' source code as callable R routines.
