@@ -147,6 +147,13 @@ typedef struct {
   CoordIJK coord;  ///< ijk coordinates on that face
 } FaceIJK;
 
+/** @struct Vec2d
+ *  @brief 2D floating-point vector
+ */
+typedef struct {
+  double x;  ///< x component
+  double y;  ///< y component
+} Vec2d;
 
 inline  H3Error  latLngToCell( const LatLng *g, int res, H3Index *out ) {
    H3Error (*fun)( const LatLng*, int, H3Index* ) =
@@ -579,7 +586,26 @@ return fun(origin, destination);
 inline void _geoToFaceIjk(const LatLng *g, int res, FaceIJK *h) {
   void(*fun)(const LatLng*, int, FaceIJK*) =
     (void(*)(const LatLng*, int, FaceIJK*)) R_GetCCallable("h3lib", "_geoToFaceIjk");
-  return fun(g, res, h);
+  fun(g, res, h);
+}
+
+
+inline void _faceIjkToGeo(const FaceIJK *h, int res, LatLng *g) {
+  void(*fun)(const FaceIJK*, int, LatLng*) =
+    (void(*)(const FaceIJK*, int, LatLng*)) R_GetCCallable("h3lib", "_faceIjkToGeo");
+  fun(h, res, g);
+}
+
+inline void _geoToHex2d(const LatLng *g, int res, int *face, Vec2d *v) {
+  void(*fun)(const LatLng*, int, int*, Vec2d*) =
+    (void(*)(const LatLng*, int, int*, Vec2d*)) R_GetCCallable("h3lib", "_geoToHex2d");
+  fun(g, res, face, v);
+}
+
+inline void _hex2dToCoordIJK(const Vec2d *v, CoordIJK *h) {
+  void(*fun)(const Vec2d*, CoordIJK*) =
+    (void(*)(const Vec2d*, CoordIJK*)) R_GetCCallable("h3lib", "_hex2dToCoordIJK");
+  fun(v, h);
 }
 
 #ifdef __cplusplus
