@@ -1,6 +1,7 @@
 // #include "h3api.h"
 
 #include "algos.h" // directionForNeighbor
+#include "faceijk.h" // FACEIJK operations
 
 #include <R.h>
 #include <Rconfig.h>
@@ -94,6 +95,9 @@ void attribute_visible R_init_h3lib(DllInfo *info)
 
   // Non-API
   R_RegisterCCallable("h3lib", "directionForNeighbor",        (DL_FUNC) &directionForNeighbor);
+  R_RegisterCCallable("h3lib", "_geoToFaceIjk",               (DL_FUNC) &_geoToFaceIjk);
+  R_RegisterCCallable("h3lib", "_geoToHex2d",                 (DL_FUNC) &_geoToHex2d);
+  R_RegisterCCallable("h3lib", "_hex2dToCoordIJK",            (DL_FUNC) &_hex2dToCoordIJK);
 
   R_forceSymbols(info, TRUE);  // controls visibility
 

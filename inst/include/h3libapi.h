@@ -127,6 +127,27 @@ typedef struct {
     int j;  ///< j component
 } CoordIJ;
 
+/** @struct CoordIJK
+ * @brief IJK hexagon coordinates
+ *
+ * Each axis is spaced 120 degrees apart.
+ */
+typedef struct {
+  int i;  ///< i component
+  int j;  ///< j component
+  int k;  ///< k component
+} CoordIJK;
+
+/** @struct FaceIJK
+ * @brief Face number and ijk coordinates on that face-centered coordinate
+ * system
+ */
+typedef struct {
+  int face;        ///< face number
+  CoordIJK coord;  ///< ijk coordinates on that face
+} FaceIJK;
+
+
 inline  H3Error  latLngToCell( const LatLng *g, int res, H3Index *out ) {
    H3Error (*fun)( const LatLng*, int, H3Index* ) =
     ( H3Error (*)( const LatLng*, int, H3Index* )) R_GetCCallable("h3lib","latLngToCell");
@@ -553,6 +574,12 @@ inline Direction directionForNeighbor(H3Index origin, H3Index destination) {
 Direction(*fun)(H3Index, H3Index) =
     (Direction(*)(H3Index, H3Index)) R_GetCCallable("h3lib", "directionForNeighbor");
 return fun(origin, destination);
+}
+
+inline void _geoToFaceIjk(const LatLng *g, int res, FaceIJK *h) {
+  void(*fun)(const LatLng*, int, FaceIJK*) =
+    (void(*)(const LatLng*, int, FaceIJK*)) R_GetCCallable("h3lib", "_geoToFaceIjk");
+  return fun(g, res, h);
 }
 
 #ifdef __cplusplus
