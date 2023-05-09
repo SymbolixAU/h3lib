@@ -608,6 +608,20 @@ inline void _hex2dToCoordIJK(const Vec2d *v, CoordIJK *h) {
   fun(v, h);
 }
 
+inline H3Error _h3ToFaceIjk(H3Index h, FaceIJK *fijk) {
+  H3Error(*fun)(H3Index, FaceIJK*) =
+    (H3Error(*)(H3Index, FaceIJK*)) R_GetCCallable("h3lib", "_h3ToFaceIjk");
+  return fun(h, fijk);
+}
+
+inline H3Index _faceIjkToH3(const FaceIJK *fijk, int res) {
+  H3Index(*fun)(const FaceIJK*, int) =
+    (H3Index(*)(const FaceIJK*, int)) R_GetCCallable("h3lib", "_faceIjkToH3");
+  return fun(fijk, res);
+}
+
+
+
 #ifdef __cplusplus
 }
 

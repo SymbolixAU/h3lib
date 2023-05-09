@@ -2,6 +2,7 @@
 
 #include "algos.h" // directionForNeighbor
 #include "faceijk.h" // FACEIJK operations
+#include "h3Index.h" // _h3ToFaceIjk and _faceIjkToH3
 
 #include <R.h>
 #include <Rconfig.h>
@@ -99,7 +100,9 @@ void attribute_visible R_init_h3lib(DllInfo *info)
   R_RegisterCCallable("h3lib", "_hex2dToCoordIJK",            (DL_FUNC) &_hex2dToCoordIJK);
   R_RegisterCCallable("h3lib", "_faceIjkToGeo",               (DL_FUNC) &_faceIjkToGeo);
   R_RegisterCCallable("h3lib", "_geoToHex2d",                 (DL_FUNC) &_geoToHex2d);
-  R_RegisterCCallable("h3lib", "_hex2dToCoordIJK",            (DL_FUNC) &_hex2dToCoordIJK);
+  R_RegisterCCallable("h3lib", "_h3ToFaceIjk",                (DL_FUNC) &_h3ToFaceIjk);
+  R_RegisterCCallable("h3lib", "_faceIjkToH3",                (DL_FUNC) &_faceIjkToH3);
+
 
   R_forceSymbols(info, TRUE);  // controls visibility
 
