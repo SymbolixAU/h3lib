@@ -6,8 +6,12 @@
 #include <Rconfig.h>
 #include <R_ext/Rdynload.h>
 
-// #include "h3api.h" <-- can't include this as it' can't be found by linking packages
+/* For uint64_t */
+#include <stdint.h>
+/* For size_t */
+#include <stdlib.h>
 
+// #include "h3api.h" <-- can't include this as it' can't be found by linking packages
 #ifdef HAVE_VISIBILITY_ATTRIBUTE
 # define attribute_hidden __attribute__ ((visibility ("hidden")))
 #else
@@ -618,6 +622,12 @@ inline H3Index _faceIjkToH3(const FaceIJK *fijk, int res) {
   H3Index(*fun)(const FaceIJK*, int) =
     (H3Index(*)(const FaceIJK*, int)) R_GetCCallable("h3lib", "_faceIjkToH3");
   return fun(fijk, res);
+}
+
+inline H3Error cellToLocalIjk(H3Index origin, H3Index h3, CoordIJK *out) {
+  H3Index(*fun)(H3Index, H3Index, CoordIJK*) =
+    (H3Index(*)(H3Index, H3Index, CoordIJK*)) R_GetCCallable("h3lib", "cellToLocalIjk");
+  return fun(origin, h3, out);
 }
 
 
