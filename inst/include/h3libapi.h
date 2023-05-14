@@ -630,6 +630,11 @@ inline H3Error cellToLocalIjk(H3Index origin, H3Index h3, CoordIJK *out) {
   return fun(origin, h3, out);
 }
 
+inline void _geoToClosestFace(const LatLng *g, int *face, double *sqd) {
+  void(*fun)(const LatLng*, int*, double*) =
+    (void(*)(const LatLng*, int*, double)) R_GetCCallable("h3lib", "_geoToClosestFace");
+  fun(g, face, sqd)
+}
 
 
 #ifdef __cplusplus
