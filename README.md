@@ -6,7 +6,7 @@
 `h3lib` is an R pacakge. But it’s also **not** an R package.
 
 There aren’t any R functions you can call, nor can you import this
-pacakge as-is into your own.
+package as-is into your own.
 
 ## So, what *is* `h3lib`?
 
@@ -68,7 +68,7 @@ If you look in the `/src/` directory you’ll see various `.c` files.
 The `init.c` also contains some `R_RegisterCCallable()` (because it too
 is exposing some of its C code to the wider R ecosystem).
 
-but it also defines which Routines it wants to **import**
+But it also defines which Routines it wants to **import**
 
     H3Error (*latLngToCell);
     H3Error (*cellToLatLng);
@@ -110,3 +110,89 @@ it!
       UNPROTECT(1);
       return cells;
     }
+
+## Working Example
+
+Let’s build our own example that uses `cellToLatLng` to build `{sf}`
+polygons.
+
+For this we can link to both `{h3lib}` and `{sfheaders}`
+
+``` r
+
+library(Rcpp)
+
+cppFunction(
+  
+  depends = c(
+    "h3lib"
+    , "geometries"  ## <- required because sfheaders depends on it
+    , "sfheaders"   ## <- for building sf objects through C++ code
+    )
+  , includes = c(
+    '#include "h3libapi.h"'
+    , '#include "sfheaders/sfg/polygon/sfg_polygon.hpp"'
+    )
+  , code = '
+    SEXP cellToPolygon(SEXP h3) {
+    
+      R_xlen_t n = Rf_xlength(h3);
+      R_xlen_t i, j;
+      
+      Rcpp::List poylgons(n);  // for storing the sfg_polygons
+      
+      for(i = 0; i < n; ++i) {
+        H3Index idx;
+        CellBoundary cb;
+        
+        // convert the SEXP cell (stringVector) to H3Index
+        int e1 = stringToH3(CHAR(STRING_ELT(h3, i)), &idx);
+        // TODO: handle the error-code `e1`
+        
+        // Convert H3Index to CellBoundary object
+        int e2 = cellToBoundary(idx, &cb);
+        // TODO: handle the rror-code `e2`;
+        
+        // Convert the CellBoundary to sfg_polygon
+        // where sfheaders::sfg_polygon accepts a matrix or data-frame
+        Rcpp::NumericMatrix latLng(cb.numVerts, 2);
+        for(j = 0; j < cb.numVerts; ++j) {
+          latLng(j, 0) = radsToDegs(cb.verts[i].lng);
+          latLng(j, 1) = radsToDegs(cb.verts[j].lat);
+        }
+        poylgons[i] = sfheaders::sfg::sfg_polygon(latLng, "XY");
+      }
+      return poylgons;
+    }
+  '
+)
+
+cellToPolygon(c("8cbe63562a54bff","8cbe635631103ff"))
+# [[1]]
+# [[1]]
+#          [,1]      [,2]
+# [1,] 144.9833 -37.82030
+# [2,] 144.9833 -37.82019
+# [3,] 144.9833 -37.82012
+# [4,] 144.9833 -37.82016
+# [5,] 144.9833 -37.82026
+# [6,] 144.9833 -37.82033
+# [7,] 144.9833 -37.82030
+# 
+# attr(,"class")
+# [1] "XY"      "POLYGON" "sfg"    
+# 
+# [[2]]
+# [[1]]
+#          [,1]      [,2]
+# [1,] 144.9675 -37.81851
+# [2,] 144.9675 -37.81840
+# [3,] 144.9675 -37.81833
+# [4,] 144.9675 -37.81837
+# [5,] 144.9675 -37.81847
+# [6,] 144.9675 -37.81854
+# [7,] 144.9675 -37.81851
+# 
+# attr(,"class")
+# [1] "XY"      "POLYGON" "sfg"
+```
