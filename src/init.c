@@ -105,6 +105,7 @@ void attribute_visible R_init_h3lib(DllInfo *info)
   R_RegisterCCallable("h3lib", "_faceIjkToH3",                (DL_FUNC) &_faceIjkToH3);
   R_RegisterCCallable("h3lib", "cellToLocalIjk",              (DL_FUNC) &cellToLocalIjk);
   R_RegisterCCallable("h3lib", "_geoToClosestFace",           (DL_FUNC) &_geoToClosestFace);
+  R_RegisterCCallable("h3lib", "_ijkToHex2d",                 (DL_FUNC) &_ijkToHex2d);
 
 
   R_forceSymbols(info, TRUE);  // controls visibility

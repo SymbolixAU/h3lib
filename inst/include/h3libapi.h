@@ -636,6 +636,11 @@ inline void _geoToClosestFace(const LatLng *g, int *face, double *sqd) {
   fun(g, face, sqd);
 }
 
+inline void _ijkToHex2d(const CoordIJK *h, Vec2d *v) {
+  void(*fun)(const CoordIJK*, Vec2d*) =
+    (void(*)(const CoordIJK*, Vec2d*)) R_GetCCallable("h3lib", "_ijkToHex2d");
+  fun(h, v);
+}
 
 #ifdef __cplusplus
 }
