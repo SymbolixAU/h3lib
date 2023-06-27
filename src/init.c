@@ -97,15 +97,15 @@ void attribute_visible R_init_h3lib(DllInfo *info)
 
   // Non-API
   R_RegisterCCallable("h3lib", "directionForNeighbor",        (DL_FUNC) &directionForNeighbor);
-  R_RegisterCCallable("h3lib", "_geoToFaceIjk",               (DL_FUNC) &_geoToFaceIjk);
-  R_RegisterCCallable("h3lib", "_hex2dToCoordIJK",            (DL_FUNC) &_hex2dToCoordIJK);
-  R_RegisterCCallable("h3lib", "_faceIjkToGeo",               (DL_FUNC) &_faceIjkToGeo);
-  R_RegisterCCallable("h3lib", "_geoToHex2d",                 (DL_FUNC) &_geoToHex2d);
-  R_RegisterCCallable("h3lib", "_h3ToFaceIjk",                (DL_FUNC) &_h3ToFaceIjk);
-  R_RegisterCCallable("h3lib", "_faceIjkToH3",                (DL_FUNC) &_faceIjkToH3);
-  R_RegisterCCallable("h3lib", "cellToLocalIjk",              (DL_FUNC) &cellToLocalIjk);
+  // R_RegisterCCallable("h3lib", "_geoToFaceIjk",               (DL_FUNC) &_geoToFaceIjk);
+  // R_RegisterCCallable("h3lib", "_hex2dToCoordIJK",            (DL_FUNC) &_hex2dToCoordIJK);
+  // R_RegisterCCallable("h3lib", "_faceIjkToGeo",               (DL_FUNC) &_faceIjkToGeo);
+  // R_RegisterCCallable("h3lib", "_geoToHex2d",                 (DL_FUNC) &_geoToHex2d);
+  // R_RegisterCCallable("h3lib", "_h3ToFaceIjk",                (DL_FUNC) &_h3ToFaceIjk);
+  // R_RegisterCCallable("h3lib", "_faceIjkToH3",                (DL_FUNC) &_faceIjkToH3);
+  // R_RegisterCCallable("h3lib", "cellToLocalIjk",              (DL_FUNC) &cellToLocalIjk);
   R_RegisterCCallable("h3lib", "_geoToClosestFace",           (DL_FUNC) &_geoToClosestFace);
-  R_RegisterCCallable("h3lib", "_ijkToHex2d",                 (DL_FUNC) &_ijkToHex2d);
+  // R_RegisterCCallable("h3lib", "_ijkToHex2d",                 (DL_FUNC) &_ijkToHex2d);
 
 
   R_forceSymbols(info, TRUE);  // controls visibility
