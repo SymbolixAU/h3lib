@@ -587,60 +587,12 @@ Direction(*fun)(H3Index, H3Index) =
 return fun(origin, destination);
 }
 
-// inline void _geoToFaceIjk(const LatLng *g, int res, FaceIJK *h) {
-//   void(*fun)(const LatLng*, int, FaceIJK*) =
-//     (void(*)(const LatLng*, int, FaceIJK*)) R_GetCCallable("h3lib", "_geoToFaceIjk");
-//   fun(g, res, h);
-// }
-//
-//
-// inline void _faceIjkToGeo(const FaceIJK *h, int res, LatLng *g) {
-//   void(*fun)(const FaceIJK*, int, LatLng*) =
-//     (void(*)(const FaceIJK*, int, LatLng*)) R_GetCCallable("h3lib", "_faceIjkToGeo");
-//   fun(h, res, g);
-// }
-//
-// inline void _geoToHex2d(const LatLng *g, int res, int *face, Vec2d *v) {
-//   void(*fun)(const LatLng*, int, int*, Vec2d*) =
-//     (void(*)(const LatLng*, int, int*, Vec2d*)) R_GetCCallable("h3lib", "_geoToHex2d");
-//   fun(g, res, face, v);
-// }
-//
-// inline void _hex2dToCoordIJK(const Vec2d *v, CoordIJK *h) {
-//   void(*fun)(const Vec2d*, CoordIJK*) =
-//     (void(*)(const Vec2d*, CoordIJK*)) R_GetCCallable("h3lib", "_hex2dToCoordIJK");
-//   fun(v, h);
-// }
-//
-// inline H3Error _h3ToFaceIjk(H3Index h, FaceIJK *fijk) {
-//   H3Error(*fun)(H3Index, FaceIJK*) =
-//     (H3Error(*)(H3Index, FaceIJK*)) R_GetCCallable("h3lib", "_h3ToFaceIjk");
-//   return fun(h, fijk);
-// }
-//
-// inline H3Index _faceIjkToH3(const FaceIJK *fijk, int res) {
-//   H3Index(*fun)(const FaceIJK*, int) =
-//     (H3Index(*)(const FaceIJK*, int)) R_GetCCallable("h3lib", "_faceIjkToH3");
-//   return fun(fijk, res);
-// }
-
-inline H3Error cellToLocalIjk(H3Index origin, H3Index h3, CoordIJK *out) {
-  H3Index(*fun)(H3Index, H3Index, CoordIJK*) =
-    (H3Index(*)(H3Index, H3Index, CoordIJK*)) R_GetCCallable("h3lib", "cellToLocalIjk");
-  return fun(origin, h3, out);
-}
-
 inline void _geoToClosestFace(const LatLng *g, int *face, double *sqd) {
   void(*fun)(const LatLng*, int*, double*) =
     (void(*)(const LatLng*, int*, double*)) R_GetCCallable("h3lib", "_geoToClosestFace");
   fun(g, face, sqd);
 }
 
-// inline void _ijkToHex2d(const CoordIJK *h, Vec2d *v) {
-//   void(*fun)(const CoordIJK*, Vec2d*) =
-//     (void(*)(const CoordIJK*, Vec2d*)) R_GetCCallable("h3lib", "_ijkToHex2d");
-//   fun(h, v);
-// }
 
 #ifdef __cplusplus
 }
