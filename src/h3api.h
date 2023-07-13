@@ -487,7 +487,7 @@ DECLSPEC H3Error H3_EXPORT(stringToH3)(const char *str, H3Index *out);
  * @{
  */
 /** @brief converts an H3Index to a canonical string */
-DECLSPEC H3Error H3_EXPORT(h3ToString)(H3Index h, char *str, size_t sz);
+//DECLSPEC H3Error H3_EXPORT(h3ToString)(H3Index h, char *str, size_t sz);
 /** @} */
 
 /** @defgroup isValidCell isValidCell
