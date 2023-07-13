@@ -61,7 +61,7 @@ void attribute_visible R_init_h3lib(DllInfo *info)
   R_RegisterCCallable("h3lib", "getResolution",         (DL_FUNC) &getResolution);
   R_RegisterCCallable("h3lib", "getBaseCellNumber",         (DL_FUNC) &getBaseCellNumber);
   R_RegisterCCallable("h3lib", "stringToH3",         (DL_FUNC) &stringToH3);
-  R_RegisterCCallable("h3lib", "h3ToString",         (DL_FUNC) &h3ToString);
+  //R_RegisterCCallable("h3lib", "h3ToString",         (DL_FUNC) &h3ToString);
   R_RegisterCCallable("h3lib", "isValidCell",         (DL_FUNC) &isValidCell);
   R_RegisterCCallable("h3lib", "cellToParent",         (DL_FUNC) &cellToParent);
   R_RegisterCCallable("h3lib", "cellToChildrenSize",         (DL_FUNC) &cellToChildrenSize);

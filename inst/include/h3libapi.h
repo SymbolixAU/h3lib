@@ -387,11 +387,11 @@ inline  H3Error  stringToH3( const char *str, H3Index *out ) {
   return fun( str, out );
 }
 
-inline  H3Error  h3ToString( H3Index h, char *str, size_t sz ) {
-   H3Error (*fun)( H3Index, char*, size_t ) =
-    ( H3Error (*)( H3Index, char*, size_t )) R_GetCCallable("h3lib","h3ToString");
-  return fun( h, str, sz );
-}
+// inline  H3Error  h3ToString( H3Index h, char *str, size_t sz ) {
+//    H3Error (*fun)( H3Index, char*, size_t ) =
+//     ( H3Error (*)( H3Index, char*, size_t )) R_GetCCallable("h3lib","h3ToString");
+//   return fun( h, str, sz );
+// }
 
 inline  int  isValidCell( H3Index h ) {
    int (*fun)( H3Index ) =
