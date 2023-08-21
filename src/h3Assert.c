@@ -19,6 +19,8 @@
 
 #include "h3Assert.h"
 
+typedef int unused;
+
 #if defined(H3_COVERAGE_TEST) || defined(H3_DEBUG)
 /*
 ** Counter used for coverage testing.  Does not come into play for
