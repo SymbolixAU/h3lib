@@ -10,7 +10,7 @@ h3lib
 }
 \details{
 h3lib exposes the source code of 'H3' (written in 'C') to routines that are callable through 'R'.
-Detailed examples on how to call these routines are on the website \link{https://github.com/symbolixau/h3lib#how-do-i-call-these-routines}.
+Detailed examples on how to call these routines are on the website \url{https://github.com/symbolixau/h3lib#how-do-i-call-these-routines}.
 }
 \seealso{
 Useful links:
