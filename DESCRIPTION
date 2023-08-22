@@ -7,7 +7,10 @@ Authors@R: c(
     person("David", "Cooley", ,"dcooley@symbolix.com.au", role = c("aut", "cre")),
     person("Ray", "Shao", ,"rshao@symbolix.com.au", role = c("ctb"))
     )
-Description: Registers the 'H3' source code as callable R routines.
+Description: 'H3' is a hexagonal hierarchical spatial index developed by 'Uber' <https://www.uber.com/en-AU/blog/h3/>.
+  This package exposes the source code of 'H3' (written in 'C') to routines that are callable through 'R'..
+URL: https://github.com/symbolixau/h3lib
+BugReports: https://github.com/symbolixau/h3lib/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
