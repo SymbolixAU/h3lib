@@ -8,7 +8,7 @@ Authors@R: c(
     person("Ray", "Shao", ,"rshao@symbolix.com.au", role = c("ctb"))
     )
 Description: 'H3' is a hexagonal hierarchical spatial index developed by 'Uber' <https://h3geo.org/>.
-  This package exposes the source code of 'H3' (written in 'C') to routines that are callable through 'R'..
+  This package exposes the source code of 'H3' (written in 'C') to routines that are callable through 'R'.
 URL: https://github.com/symbolixau/h3lib
 BugReports: https://github.com/symbolixau/h3lib/issues
 License: MIT + file LICENSE

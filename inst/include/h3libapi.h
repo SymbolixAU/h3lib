@@ -345,10 +345,10 @@ inline  H3Error  getNumCells( int res, int64_t *out ) {
   return fun( res, out );
 }
 
-inline  int  res0CellCount(  ) {
-   int (*fun)(  ) =
-    ( int (*)(  )) R_GetCCallable("h3lib","res0CellCount");
-  return fun(  );
+inline  int  res0CellCount( void ) {
+   int (*fun)( void ) =
+    ( int (*)( void )) R_GetCCallable("h3lib","res0CellCount");
+  return fun( );
 }
 
 inline  H3Error  getRes0Cells( H3Index *out ) {
@@ -357,10 +357,10 @@ inline  H3Error  getRes0Cells( H3Index *out ) {
   return fun( out );
 }
 
-inline  int  pentagonCount(  ) {
-   int (*fun)(  ) =
-    ( int (*)(  )) R_GetCCallable("h3lib","pentagonCount");
-  return fun(  );
+inline  int  pentagonCount( void ) {
+   int (*fun)( void ) =
+    ( int (*)( void )) R_GetCCallable("h3lib","pentagonCount");
+  return fun( );
 }
 
 inline  H3Error  getPentagons( int res, H3Index *out ) {
