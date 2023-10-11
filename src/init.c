@@ -10,7 +10,6 @@
 #include <R_ext/Rdynload.h>
 #include <R_ext/Visibility.h>
 
-
 /* Define .Call functions */
 static const R_CallMethodDef callMethods[] = {
   {NULL,                NULL,                        0}

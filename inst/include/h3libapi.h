@@ -594,6 +594,11 @@ inline void _geoToClosestFace(const LatLng *g, int *face, double *sqd) {
 }
 
 
+inline void h3lib_tests(void) {
+  void(*fun)(void) = (void(*)(void)) R_GetCCallable("h3lib", "h3lib_tests");
+  fun();
+}
+
 #ifdef __cplusplus
 }
 
