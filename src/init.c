@@ -1,8 +1,8 @@
-// #include "h3api.h"
+
+#include "h3api.h"
 
 #include "algos.h" // directionForNeighbor
 #include "faceijk.h" // FACEIJK operations
-#include "h3Index.h" // _h3ToFaceIjk and _faceIjkToH3
 
 #include <R.h>
 #include <Rconfig.h>
@@ -15,13 +15,14 @@ static const R_CallMethodDef callMethods[] = {
   {NULL,                NULL,                        0}
 };
 
-void attribute_visible R_init_h3lib(DllInfo *info)
+void R_init_h3lib(DllInfo *info)
 {
   R_registerRoutines(info, NULL, callMethods, NULL, NULL);
 
   R_useDynamicSymbols(info, FALSE);
+  R_forceSymbols(info, TRUE);  // controls visibility; R > 3.0.0 `.Call(cellToLatLng)` works, but `.Call("cellToLatLng")` does not
 
-
+  R_RegisterCCallable("h3lib", "areNeighborCells",         (DL_FUNC) &areNeighborCells);
   R_RegisterCCallable("h3lib", "latLngToCell",         (DL_FUNC) &latLngToCell);
   R_RegisterCCallable("h3lib", "cellToLatLng",         (DL_FUNC) &cellToLatLng);
   R_RegisterCCallable("h3lib", "cellToBoundary",         (DL_FUNC) &cellToBoundary);
@@ -75,7 +76,6 @@ void attribute_visible R_init_h3lib(DllInfo *info)
   R_RegisterCCallable("h3lib", "isPentagon",         (DL_FUNC) &isPentagon);
   R_RegisterCCallable("h3lib", "maxFaceCount",         (DL_FUNC) &maxFaceCount);
   R_RegisterCCallable("h3lib", "getIcosahedronFaces",         (DL_FUNC) &getIcosahedronFaces);
-  R_RegisterCCallable("h3lib", "areNeighborCells",         (DL_FUNC) &areNeighborCells);
   R_RegisterCCallable("h3lib", "cellsToDirectedEdge",         (DL_FUNC) &cellsToDirectedEdge);
   R_RegisterCCallable("h3lib", "isValidDirectedEdge",         (DL_FUNC) &isValidDirectedEdge);
   R_RegisterCCallable("h3lib", "getDirectedEdgeOrigin",         (DL_FUNC) &getDirectedEdgeOrigin);
@@ -96,8 +96,6 @@ void attribute_visible R_init_h3lib(DllInfo *info)
   // Non-API
   R_RegisterCCallable("h3lib", "directionForNeighbor",        (DL_FUNC) &directionForNeighbor);
   R_RegisterCCallable("h3lib", "_geoToClosestFace",           (DL_FUNC) &_geoToClosestFace);
-
-  R_forceSymbols(info, TRUE);  // controls visibility
 
 }
 
