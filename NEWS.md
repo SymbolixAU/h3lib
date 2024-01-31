@@ -1,3 +1,3 @@
 # 0.1.3
 
-* refactored the headers and routines
+* Refactored the headers and routines
