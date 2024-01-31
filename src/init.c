@@ -10,8 +10,11 @@
 #include <R_ext/Rdynload.h>
 #include <R_ext/Visibility.h>
 
+#include "is_valid.h"
+
 /* Define .Call functions */
 static const R_CallMethodDef callMethods[] = {
+  {"is_valid", (DL_FUNC) &is_valid},
   {NULL,                NULL,                        0}
 };
 
