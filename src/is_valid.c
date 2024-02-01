@@ -18,6 +18,7 @@ SEXP is_valid(SEXP cell) {
   int valid = isValidCell(h3);
 
   SEXP out = PROTECT(Rf_allocVector(INTSXP, 1));
+  SET_INTEGER_ELT(out, 0, valid);
 
   UNPROTECT(1);
   return out;
