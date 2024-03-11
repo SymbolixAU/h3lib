@@ -52,6 +52,8 @@ typedef enum {
 } Direction;
 
 
+#define H3_INIT (UINT64_C(35184372088831))
+
 #define MAX_CELL_BNDRY_VERTS 10
 
 /** @struct LatLng
