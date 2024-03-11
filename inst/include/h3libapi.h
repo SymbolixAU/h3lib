@@ -51,9 +51,6 @@ typedef enum {
     PENTAGON_SKIPPED_DIGIT = K_AXES_DIGIT /* 1 */
 } Direction;
 
-
-#define H3_INIT (UINT64_C(35184372088831))
-
 #define MAX_CELL_BNDRY_VERTS 10
 
 /** @struct LatLng
