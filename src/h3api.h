@@ -104,11 +104,19 @@ typedef enum {
     E_OPTION_INVALID = 15  // Mode or flags argument was not valid.
 } H3ErrorCodes;
 
+/** @defgroup describeH3Error describeH3Error
+ * Functions for describeH3Error
+ * @{
+ */
+/** @brief converts the provided H3Error value into a description string */
+DECLSPEC const char *H3_EXPORT(describeH3Error)(H3Error err);
+/** @} */
+
 /* library version numbers generated from VERSION file */
 // clang-format off
-#define H3_VERSION_MAJOR 4
-#define H3_VERSION_MINOR 1
-#define H3_VERSION_PATCH 0
+#define H3_VERSION_MAJOR @H3_VERSION_MAJOR@
+#define H3_VERSION_MINOR @H3_VERSION_MINOR@
+#define H3_VERSION_PATCH @H3_VERSION_PATCH@
 // clang-format on
 
 /** Maximum number of cell boundary vertices; worst case is pentagon:
@@ -274,15 +282,30 @@ DECLSPEC H3Error H3_EXPORT(gridRingUnsafe)(H3Index origin, int k, H3Index *out);
  * Functions for polygonToCells
  * @{
  */
-/** @brief maximum number of hexagons that could be in the geoloop */
+/** @brief maximum number of cells that could be in the polygon */
 DECLSPEC H3Error H3_EXPORT(maxPolygonToCellsSize)(const GeoPolygon *geoPolygon,
                                                   int res, uint32_t flags,
                                                   int64_t *out);
 
-/** @brief hexagons within the given geopolygon */
+/** @brief cells within the given polygon */
 DECLSPEC H3Error H3_EXPORT(polygonToCells)(const GeoPolygon *geoPolygon,
                                            int res, uint32_t flags,
                                            H3Index *out);
+/** @} */
+
+/** @defgroup polygonToCellsExperimental polygonToCellsExperimental
+ * Functions for polygonToCellsExperimental.
+ * This is an experimental-only API and is subject to change in minor versions.
+ * @{
+ */
+/** @brief maximum number of cells that could be in the polygon */
+DECLSPEC H3Error H3_EXPORT(maxPolygonToCellsSizeExperimental)(
+    const GeoPolygon *polygon, int res, uint32_t flags, int64_t *out);
+
+/** @brief cells within the given polygon */
+DECLSPEC H3Error H3_EXPORT(polygonToCellsExperimental)(
+    const GeoPolygon *polygon, int res, uint32_t flags, int64_t size,
+    H3Index *out);
 /** @} */
 
 /** @defgroup cellsToMultiPolygon cellsToMultiPolygon

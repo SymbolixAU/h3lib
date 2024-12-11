@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2021 Uber Technologies, Inc.
+ * Copyright 2016-2023 Uber Technologies, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@
  * @return The normalized radians value.
  */
 double _posAngleRads(double rads) {
-    double tmp = ((rads < 0.0L) ? rads + M_2PI : rads);
+    double tmp = ((rads < 0.0) ? rads + M_2PI : rads);
     if (rads >= M_2PI) tmp -= M_2PI;
     return tmp;
 }
@@ -138,6 +138,24 @@ double constrainLng(double lng) {
 }
 
 /**
+ * Normalize an input longitude according to the specified normalization
+ * @param  lng           Input longitude
+ * @param  normalization Longitude normalization strategy
+ * @return               Normalized longitude
+ */
+double normalizeLng(const double lng,
+                    const LongitudeNormalization normalization) {
+    switch (normalization) {
+        case NORMALIZE_EAST:
+            return lng < 0 ? lng + (double)M_2PI : lng;
+        case NORMALIZE_WEST:
+            return lng > 0 ? lng - (double)M_2PI : lng;
+        default:
+            return lng;
+    }
+}
+
+/**
  * The great circle distance in radians between two spherical coordinates.
  *
  * This function uses the Haversine formula.
@@ -151,8 +169,8 @@ double constrainLng(double lng) {
  * @return    the great circle distance in radians between a and b
  */
 double H3_EXPORT(greatCircleDistanceRads)(const LatLng *a, const LatLng *b) {
-    double sinLat = sin((b->lat - a->lat) / 2.0);
-    double sinLng = sin((b->lng - a->lng) / 2.0);
+    double sinLat = sin((b->lat - a->lat) * 0.5);
+    double sinLng = sin((b->lng - a->lng) * 0.5);
 
     double A = sinLat * sinLat + cos(a->lat) * cos(b->lat) * sinLng * sinLng;
 
@@ -240,9 +258,10 @@ void _geoAzDistanceRads(const LatLng *p1, double az, double distance,
             p2->lat = -M_PI_2;
             p2->lng = 0.0;
         } else {
-            sinlng = sin(az) * sin(distance) / cos(p2->lat);
+            double invcosp2lat = 1.0 / cos(p2->lat);
+            sinlng = sin(az) * sin(distance) * invcosp2lat;
             coslng = (cos(distance) - sin(p1->lat) * sin(p2->lat)) /
-                     cos(p1->lat) / cos(p2->lat);
+                     cos(p1->lat) * invcosp2lat;
             if (sinlng > 1.0) sinlng = 1.0;
             if (sinlng < -1.0) sinlng = -1.0;
             if (coslng > 1.0) coslng = 1.0;
@@ -337,12 +356,12 @@ H3Error H3_EXPORT(getNumCells)(int res, int64_t *out) {
  * @return     area in radians^2 of triangle on unit sphere
  */
 double triangleEdgeLengthsToArea(double a, double b, double c) {
-    double s = (a + b + c) / 2;
+    double s = (a + b + c) * 0.5;
 
-    a = (s - a) / 2;
-    b = (s - b) / 2;
-    c = (s - c) / 2;
-    s = s / 2;
+    a = (s - a) * 0.5;
+    b = (s - b) * 0.5;
+    c = (s - c) * 0.5;
+    s = s * 0.5;
 
     return 4 * atan(sqrt(tan(s) * tan(a) * tan(b) * tan(c)));
 }
