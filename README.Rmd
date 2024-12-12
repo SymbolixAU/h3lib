@@ -215,7 +215,13 @@ cellToPolygon(c("8cbe63562a54bff","8cbe635631103ff"))
 # [1] "XY"      "POLYGON" "sfg"
 ```
 
+---
 
+Notes for updating `{h3lib}`
+
+1. `h3Assert.c` needs *something* in it (otherwise you get a compilation unit error on CRAN). So I add `typedef int unused;`
+
+2. `h3Index.c` - `h3ToString()` has `sprintf()` call. This is an error on CRAN, so I comment this line and return `E_FAILED`. (So that any library calling this function will fail. The solution is to implement it yourself in your own package)
 
 
 
