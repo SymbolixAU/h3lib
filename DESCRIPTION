@@ -1,8 +1,8 @@
 Package: h3lib
 Type: Package
 Title: Exposes the 'Uber' 'H3' Library to R Packages
-Version: 0.1.4
-Date: 2024-12-12
+Version: 0.1.5
+Date: 2025-08-17
 Authors@R: c(
     person("David", "Cooley", ,"dcooley@symbolix.com.au", role = c("aut", "cre")),
     person("Ray", "Shao", ,"rshao@symbolix.com.au", role = c("ctb"))

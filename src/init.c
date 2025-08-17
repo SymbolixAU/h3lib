@@ -35,7 +35,9 @@ void R_init_h3lib(DllInfo *info)
   R_RegisterCCallable("h3lib", "gridDiskDistances",         (DL_FUNC) &gridDiskDistances);
   R_RegisterCCallable("h3lib", "gridRingUnsafe",         (DL_FUNC) &gridRingUnsafe);
   R_RegisterCCallable("h3lib", "maxPolygonToCellsSize",         (DL_FUNC) &maxPolygonToCellsSize);
+  R_RegisterCCallable("h3lib", "maxPolygonToCellsSizeExperimental",         (DL_FUNC) &maxPolygonToCellsSizeExperimental);
   R_RegisterCCallable("h3lib", "polygonToCells",         (DL_FUNC) &polygonToCells);
+  R_RegisterCCallable("h3lib", "polygonToCellsExperimental",         (DL_FUNC) &polygonToCellsExperimental);
   R_RegisterCCallable("h3lib", "cellsToLinkedMultiPolygon",         (DL_FUNC) &cellsToLinkedMultiPolygon);
   R_RegisterCCallable("h3lib", "destroyLinkedMultiPolygon",         (DL_FUNC) &destroyLinkedMultiPolygon);
   R_RegisterCCallable("h3lib", "degsToRads",         (DL_FUNC) &degsToRads);

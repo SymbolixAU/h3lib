@@ -234,11 +234,25 @@ inline H3Error attribute_hidden maxPolygonToCellsSize( const GeoPolygon *geoPoly
   return fun( geoPolygon, res, flags, out );
 }
 
+inline H3Error attribute_hidden maxPolygonToCellsSizeExperimental( const GeoPolygon *geoPolygon, int res, uint32_t flags, int64_t *out ) {
+  H3Error (*fun)( const GeoPolygon*, int, uint32_t, int64_t* ) =
+    ( H3Error (*)( const GeoPolygon*, int, uint32_t, int64_t* )) R_GetCCallable("h3lib","maxPolygonToCellsSizeExperimental");
+  return fun( geoPolygon, res, flags, out );
+}
+
+
 inline H3Error attribute_hidden polygonToCells( const GeoPolygon *geoPolygon, int res, uint32_t flags, H3Index *out ) {
    H3Error (*fun)( const GeoPolygon*, int, uint32_t, H3Index* ) =
     ( H3Error (*)( const GeoPolygon*, int, uint32_t, H3Index* )) R_GetCCallable("h3lib","polygonToCells");
   return fun( geoPolygon, res, flags, out );
 }
+
+inline H3Error attribute_hidden polygonToCellsExperimental( const GeoPolygon *geoPolygon, int res, uint32_t flags, H3Index *out ) {
+  H3Error (*fun)( const GeoPolygon*, int, uint32_t, H3Index* ) =
+    ( H3Error (*)( const GeoPolygon*, int, uint32_t, H3Index* )) R_GetCCallable("h3lib","polygonToCellsExperimental");
+  return fun( geoPolygon, res, flags, out );
+}
+
 
 inline H3Error attribute_hidden cellsToLinkedMultiPolygon( const H3Index *h3Set, const int numHexes, LinkedGeoPolygon *out ) {
    H3Error (*fun)( const H3Index*, const int, LinkedGeoPolygon* ) =
