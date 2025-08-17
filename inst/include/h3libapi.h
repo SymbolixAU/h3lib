@@ -241,10 +241,10 @@ inline H3Error attribute_hidden maxPolygonToCellsSizeExperimental( const GeoPoly
 }
 
 
-inline H3Error attribute_hidden polygonToCells( const GeoPolygon *geoPolygon, int res, uint32_t flags, H3Index *out ) {
-   H3Error (*fun)( const GeoPolygon*, int, uint32_t, H3Index* ) =
-    ( H3Error (*)( const GeoPolygon*, int, uint32_t, H3Index* )) R_GetCCallable("h3lib","polygonToCells");
-  return fun( geoPolygon, res, flags, out );
+inline H3Error attribute_hidden polygonToCells( const GeoPolygon *geoPolygon, int res, uint32_t flags, int64_t size, H3Index *out ) {
+   H3Error (*fun)( const GeoPolygon*, int, uint32_t, int64_t, H3Index* ) =
+    ( H3Error (*)( const GeoPolygon*, int, uint32_t, int64_t, H3Index* )) R_GetCCallable("h3lib","polygonToCells");
+  return fun( geoPolygon, res, flags, size, out );
 }
 
 inline H3Error attribute_hidden polygonToCellsExperimental( const GeoPolygon *geoPolygon, int res, uint32_t flags, H3Index *out ) {
